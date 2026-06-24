@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>施工事例一覧 | 金沢市のハウスクリーニング OC.LABO</title>
+  <meta name="description" content="金沢市・野々市市・白山市などでの実際のハウスクリーニング・エアコン清掃・洗濯機分解清掃の施工事例をご紹介します。">
+  <link rel="canonical" href="https://oc-labo.net/house-cleaning-kanazawa/works/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #F9F8F5; --sand: #F2F0EA; --white: #FFFFFF;
+      --navy: #1a2744; --gray: #6b7280; --gray2: #9ca3af;
+      --border: #e5e3dc; --line: #06C755;
+      --max-w: 1200px;
+      --serif: 'Noto Serif JP', serif;
+      --sans: 'Noto Sans JP', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--navy); font-family: var(--sans); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 32px; }
+
+    /* HEADER */
+    header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      background: rgba(249,248,245,0.82); backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px); border-bottom: 1px solid rgba(229,227,220,0.7);
+    }
+    .header-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 62px; max-width: var(--max-w); margin: 0 auto; padding: 0 32px;
+    }
+    .logo { font-family: var(--serif); font-size: 19px; font-weight: 700; color: var(--navy); text-decoration: none; letter-spacing: 0.06em; }
+    .header-nav { display: flex; align-items: center; gap: 8px; }
+    .hbtn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 7px 15px; border-radius: 50px; font-size: 12.5px;
+      font-weight: 600; font-family: var(--sans); text-decoration: none; cursor: pointer; border: none;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+    .hbtn:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(0,0,0,0.1); }
+    .hbtn-line { background: rgba(6,199,85,0.13); border: 1px solid rgba(6,199,85,0.35); color: #05a847; }
+    .hbtn-call { background: var(--navy); color: #fff; }
+
+    /* BREADCRUMB */
+    .breadcrumb {
+      padding: 84px 0 0;
+    }
+    .breadcrumb-inner {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 12px; color: var(--gray2);
+      padding: 16px 32px; max-width: var(--max-w); margin: 0 auto;
+    }
+    .breadcrumb-inner a { color: var(--gray2); text-decoration: none; }
+    .breadcrumb-inner a:hover { color: var(--navy); }
+    .breadcrumb-inner span { color: var(--navy); font-weight: 500; }
+
+    /* PAGE HEADER */
+    .page-header { padding: 40px 0 64px; text-align: center; }
+    .page-title { font-family: var(--serif); font-size: clamp(28px, 3.2vw, 40px); font-weight: 900; color: var(--navy); margin-bottom: 12px; }
+    .page-sub { font-size: 14px; color: var(--gray); }
+
+    /* FILTER */
+    .filter-bar { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-bottom: 52px; }
+    .filter-btn {
+      padding: 8px 18px; border-radius: 50px; font-size: 13px;
+      font-weight: 500; font-family: var(--sans); cursor: pointer;
+      border: 1px solid var(--border); background: var(--white);
+      color: var(--gray); transition: all 0.18s ease;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--navy); color: #fff; border-color: var(--navy);
+    }
+
+    /* WORKS GRID */
+    .works-main { padding-bottom: 96px; }
+    .works-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+
+    .wcard {
+      background: var(--white); border-radius: 18px; overflow: hidden;
+      box-shadow: 0 4px 20px rgba(26,39,68,0.07);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .wcard:hover { transform: translateY(-5px); box-shadow: 0 14px 38px rgba(26,39,68,0.13); }
+    .wcard-img { position: relative; aspect-ratio: 4/3; overflow: hidden; }
+    .wcard-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease; }
+    .wcard:hover .wcard-img img { transform: scale(1.04); }
+    .wcard-badge {
+      position: absolute; top: 12px; left: 12px;
+      background: rgba(26,39,68,0.80); backdrop-filter: blur(6px);
+      color: #fff; font-size: 9.5px; font-weight: 700; letter-spacing: 0.12em;
+      padding: 4px 10px; border-radius: 5px;
+    }
+    .wcard-body { padding: 18px 20px 22px; }
+    .wcard-loc { font-size: 11.5px; color: var(--gray2); margin-bottom: 5px; }
+    .wcard-title { font-weight: 700; font-size: 14px; color: var(--navy); margin-bottom: 9px; line-height: 1.5; }
+    .wcard-desc { font-size: 12.5px; color: var(--gray); margin-bottom: 14px; line-height: 1.75; }
+    .wcard-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+    .wcard-tag {
+      font-size: 11px; color: var(--gray);
+      background: var(--sand); border: 1px solid var(--border);
+      padding: 3px 10px; border-radius: 20px;
+    }
+
+    /* empty state */
+    .empty-state { text-align: center; padding: 80px 0; color: var(--gray2); font-size: 14px; }
+
+    /* FOOTER CTA */
+    .foot-cta { background: var(--sand); padding: 72px 0; text-align: center; }
+    .foot-cta p { font-size: 14px; color: var(--gray); margin-bottom: 28px; }
+    .metal {
+      display: inline-block; border-radius: 50px; padding: 1.5px;
+      background: linear-gradient(135deg, #d8d8d8 0%, #a8a8a8 20%, #ebebeb 40%, #888 60%, #d4d4d4 80%, #b0b0b0 100%);
+      box-shadow: 0 6px 22px rgba(26,39,68,0.16);
+    }
+    .btn-prim {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(26,39,68,0.90); backdrop-filter: blur(10px);
+      border: none; border-radius: 50px; padding: 15px 36px;
+      font-size: 15px; font-weight: 700; font-family: var(--sans);
+      color: #fff; text-decoration: none; cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-prim:hover { background: var(--navy); transform: translateY(-2px); }
+
+    /* MINI FOOTER */
+    footer { background: var(--white); border-top: 1px solid var(--border); padding: 36px 0 24px; }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; }
+    .footer-nav { display: flex; gap: 24px; }
+    .footer-nav a { font-size: 12px; color: var(--gray); text-decoration: none; }
+    .footer-nav a:hover { color: var(--navy); }
+    .footer-copy { font-size: 11.5px; color: var(--gray2); border-top: 1px solid var(--border); padding-top: 18px; margin-top: 20px; }
+
+    @media (max-width: 900px) {
+      .works-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-inner { flex-direction: column; gap: 20px; text-align: center; }
+    }
+    @media (max-width: 560px) {
+      .works-grid { grid-template-columns: 1fr; }
+      .container { padding: 0 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a href="../" class="logo">OC.LABO</a>
+    <nav class="header-nav">
+      <a href="https://lin.ee/2UVd86X" target="_blank" rel="noopener" class="hbtn hbtn-line">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314z"/></svg>
+        LINE相談
+      </a>
+      <a href="tel:08019557747" class="hbtn hbtn-call">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .84h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.68a16 16 0 006.29 6.29l1.2-1.2a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        CALL
+      </a>
+    </nav>
+  </div>
+</header>
+
+<!-- BREADCRUMB -->
+<nav class="breadcrumb" aria-label="breadcrumb">
+  <div class="breadcrumb-inner">
+    <a href="../">TOP</a>
+    <span>›</span>
+    <span>施工事例一覧</span>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="container">
+    <h1 class="page-title">施工事例一覧</h1>
+    <p class="page-sub">金沢市・野々市市・白山市をはじめ、石川県各地の実績をご紹介します。</p>
+  </div>
+</div>
+
+<!-- WORKS -->
+<section class="works-main">
+  <div class="container">
+
+    <!-- Filter -->
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="all">すべて</button>
+      <button class="filter-btn" data-filter="エアコン">エアコン</button>
+      <button class="filter-btn" data-filter="洗濯機">洗濯機</button>
+      <button class="filter-btn" data-filter="浴室">浴室</button>
+      <button class="filter-btn" data-filter="水回り">水回り</button>
+      <button class="filter-btn" data-filter="レンジフード">レンジフード</button>
+      <button class="filter-btn" data-filter="空室">空室</button>
+    </div>
+
+    <!-- Grid: works.jsonから動的生成 (Phase 2以降自動更新) -->
+    <div class="works-grid" id="works-grid"></div>
+    <div class="empty-state" id="empty-state" style="display:none;">
+      該当する施工事例が見つかりませんでした。
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER CTA -->
+<section class="foot-cta">
+  <div class="container">
+    <p>ご自宅の清掃についてお気軽にご相談ください。<br>LINEから写真を送っていただくだけでも、大まかな見積もりが可能です。</p>
+    <div class="metal">
+      <a href="https://lin.ee/2UVd86X" target="_blank" rel="noopener" class="btn-prim">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314z"/></svg>
+        LINEで無料相談する
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <span class="logo" style="font-size:16px;">OC.LABO</span>
+      <nav class="footer-nav">
+        <a href="../">TOP</a>
+        <a href="../#service">サービス</a>
+        <a href="../#price">料金</a>
+        <a href="../cancel-policy/">キャンセルポリシー</a>
+        <a href="https://www.instagram.com/oc.labo.kanazawa" target="_blank" rel="noopener">Instagram</a>
+      </nav>
+    </div>
+    <p class="footer-copy">© OC.LABO</p>
+  </div>
+</footer>
+
+<script>
+  /* ─────────────────────────────────────────────
+     静的フォールバックデータ（works.jsonが未配置の間使用）
+     Phase 2でn8nがworks.jsonを更新すれば自動的にそちらを優先
+  ───────────────────────────────────────────── */
+  const FALLBACK_WORKS = [
+    {
+      id: "001",
+      title: "金沢市｜キッチンシンクの水垢・くすみ除去",
+      area: "金沢市",
+      category: "水回り",
+      tags: ["水回り清掃", "キッチン清掃", "水垢除去"],
+      desc: "シンクまわりの水垢やくすみを丁寧に洗浄。水回り全体の清潔感が伝わる仕上がりに整えました。",
+      img: "https://images.unsplash.com/photo-1583845112203-29329902332e?auto=format&fit=crop&w=600&q=80",
+      date: "2026-06-01"
+    },
+    {
+      id: "002",
+      title: "野々市市｜浴室鏡のウロコ・水垢クリーニング",
+      area: "野々市市",
+      category: "浴室",
+      tags: ["浴室清掃", "鏡研磨", "水垢除去"],
+      desc: "浴室鏡に付着した頑固なウロコ汚れを研磨洗浄。鏡本来の輝きを取り戻しました。",
+      img: "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&w=600&q=80",
+      date: "2026-06-05"
+    },
+    {
+      id: "003",
+      title: "白山市｜レンジフード油汚れクリーニング",
+      area: "白山市",
+      category: "レンジフード",
+      tags: ["換気扇清掃", "油汚れ", "キッチン清掃"],
+      desc: "長年蓄積した頑固な油汚れを分解洗浄。フィルターまで徹底的に仕上げました。",
+      img: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=600&q=80",
+      date: "2026-06-08"
+    },
+    {
+      id: "004",
+      title: "金沢市｜エアコン内部カビ・ニオイ完全除去",
+      area: "金沢市",
+      category: "エアコン",
+      tags: ["エアコン清掃", "カビ除去", "分解洗浄"],
+      desc: "壁掛けエアコンを分解クリーニング。内部のカビやホコリを徹底除去し、清潔な空気環境を実現しました。",
+      img: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=600&q=80",
+      date: "2026-06-12"
+    },
+    {
+      id: "005",
+      title: "金沢市｜縦型洗濯機の分解洗浄",
+      area: "金沢市",
+      category: "洗濯機",
+      tags: ["洗濯機清掃", "分解洗浄", "カビ除去"],
+      desc: "洗濯槽を分解し、内部のカビ・黒ずみを根こそぎ除去。洗濯物への嫌なニオイもスッキリ解消しました。",
+      img: "https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=600&q=80",
+      date: "2026-06-15"
+    },
+    {
+      id: "006",
+      title: "金沢市｜退去後 空室ハウスクリーニング",
+      area: "金沢市",
+      category: "空室",
+      tags: ["空室清掃", "原状回復", "ハウスクリーニング"],
+      desc: "退去後の物件を丸ごとクリーニング。次の入居者が気持ちよく住めるよう、隅々まで仕上げました。",
+      img: "https://images.unsplash.com/photo-1585771724684-38269d6639fd?auto=format&fit=crop&w=600&q=80",
+      date: "2026-06-18"
+    }
+  ];
+
+  function createCard(work) {
+    return `
+      <a href="./detail/index.html?id=${work.id}" class="wcard" data-category="${work.category}" style="text-decoration:none;color:inherit;display:block;">
+        <div class="wcard-img">
+          <img src="${work.img}" alt="${work.title}" loading="lazy">
+          <span class="wcard-badge">CLEANING DETAIL</span>
+        </div>
+        <div class="wcard-body">
+          <p class="wcard-loc">${work.area}</p>
+          <h2 class="wcard-title">${work.title}</h2>
+          <p class="wcard-desc">${work.desc}</p>
+          <div class="wcard-tags">
+            ${work.tags.map(t => `<span class="wcard-tag">${t}</span>`).join('')}
+          </div>
+          <p style="margin-top:14px;font-size:12.5px;font-weight:600;color:var(--navy);">詳しく見る →</p>
+        </div>
+      </a>`;
+  }
+
+  function renderWorks(data) {
+    const grid = document.getElementById('works-grid');
+    const empty = document.getElementById('empty-state');
+    // 新しい順にソート
+    const sorted = [...data].sort((a, b) => new Date(b.date) - new Date(a.date));
+    grid.innerHTML = sorted.map(createCard).join('');
+    empty.style.display = sorted.length === 0 ? 'block' : 'none';
+  }
+
+  // works.json を試行 → 失敗したらフォールバック
+  async function loadWorks() {
+    try {
+      const res = await fetch('../data/works.json');
+      if (!res.ok) throw new Error('not found');
+      const data = await res.json();
+      renderWorks(data.length ? data : FALLBACK_WORKS);
+    } catch {
+      renderWorks(FALLBACK_WORKS);
+    }
+  }
+
+  loadWorks();
+
+  // Filter
+  let currentWorks = [];
+  const originalLoad = loadWorks;
+
+  async function init() {
+    try {
+      const res = await fetch('../data/works.json');
+      if (!res.ok) throw new Error();
+      const data = await res.json();
+      currentWorks = data.length ? data : FALLBACK_WORKS;
+    } catch {
+      currentWorks = FALLBACK_WORKS;
+    }
+    renderWorks(currentWorks);
+  }
+  init();
+
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      const filtered = f === 'all'
+        ? currentWorks
+        : currentWorks.filter(w => w.category.includes(f) || w.tags.some(t => t.includes(f)));
+      const grid = document.getElementById('works-grid');
+      const empty = document.getElementById('empty-state');
+      grid.innerHTML = filtered.map(createCard).join('');
+      empty.style.display = filtered.length === 0 ? 'block' : 'none';
+    });
+  });
+</script>
+</body>
+</html>

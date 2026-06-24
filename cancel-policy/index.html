@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>キャンセルポリシー | OC.LABO</title>
+  <meta name="description" content="OC.LABOのキャンセル・日時変更に関するポリシーをご確認ください。">
+  <link rel="canonical" href="https://oc-labo.net/house-cleaning-kanazawa/cancel-policy/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:    #F9F8F5;
+      --sand:  #F2F0EA;
+      --white: #FFFFFF;
+      --navy:  #1a2744;
+      --navy2: #2d3f6e;
+      --gray:  #6b7280;
+      --border:#e5e3dc;
+      --line:  #06C755;
+      --max-w: 1200px;
+      --serif: 'Noto Serif JP', serif;
+      --sans:  'Noto Sans JP', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--navy); font-family: var(--sans); font-size: 16px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 32px; }
+
+    /* ── HEADER ── */
+    header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(249,248,245,0.82);
+      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+    }
+    .header-inner { max-width: var(--max-w); margin: 0 auto; padding: 0 32px; height: 62px; display: flex; align-items: center; justify-content: space-between; }
+    .logo { font-family: var(--serif); font-size: 18px; font-weight: 900; color: var(--navy); text-decoration: none; letter-spacing: 0.05em; }
+    .header-nav { display: flex; gap: 8px; }
+    .hbtn { display: inline-flex; align-items: center; gap: 6px; padding: 7px 16px; border-radius: 50px; font-size: 13px; font-weight: 600; font-family: var(--sans); text-decoration: none; transition: opacity 0.2s; }
+    .hbtn:hover { opacity: 0.8; }
+    .hbtn-ig { background: rgba(26,39,68,0.07); color: var(--navy); }
+    .hbtn-line { background: var(--line); color: #fff; }
+    .hbtn-call { background: rgba(26,39,68,0.07); color: var(--navy); }
+
+    /* ── HERO ── */
+    .page-hero { padding: 120px 0 64px; text-align: center; }
+    .page-hero .label { font-size: 11px; font-weight: 700; letter-spacing: 0.25em; color: var(--gray); text-transform: uppercase; margin-bottom: 16px; }
+    .page-hero h1 { font-family: var(--serif); font-size: clamp(28px, 4vw, 42px); font-weight: 900; color: var(--navy); margin-bottom: 16px; }
+    .page-hero p { font-size: 15px; color: var(--gray); }
+
+    /* ── POLICY SECTION ── */
+    .policy-section { padding: 0 0 96px; }
+    .policy-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 48px; }
+
+    .policy-card {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 36px 28px;
+      border: 1.5px solid var(--border);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .policy-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    }
+    .policy-card.free::before  { background: #22c55e; }
+    .policy-card.half::before  { background: #f59e0b; }
+    .policy-card.full::before  { background: #ef4444; }
+
+    .policy-icon {
+      width: 56px; height: 56px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px; font-size: 22px;
+    }
+    .policy-card.free .policy-icon  { background: #dcfce7; }
+    .policy-card.half .policy-icon  { background: #fef3c7; }
+    .policy-card.full .policy-icon  { background: #fee2e2; }
+
+    .policy-timing {
+      font-size: 12px; font-weight: 700; letter-spacing: 0.12em;
+      color: var(--gray); text-transform: uppercase; margin-bottom: 8px;
+    }
+    .policy-title {
+      font-family: var(--serif); font-size: 20px; font-weight: 900;
+      color: var(--navy); margin-bottom: 12px; line-height: 1.4;
+    }
+    .policy-card.free .policy-title  { color: #16a34a; }
+    .policy-card.half .policy-title  { color: #d97706; }
+    .policy-card.full .policy-title  { color: #dc2626; }
+
+    .policy-desc { font-size: 13.5px; color: var(--gray); line-height: 1.8; }
+
+    /* ── NOTE ── */
+    .policy-note {
+      background: var(--sand);
+      border-radius: 16px;
+      padding: 28px 32px;
+      margin-bottom: 48px;
+    }
+    .policy-note p { font-size: 14px; color: var(--navy); line-height: 2; }
+    .policy-note strong { font-weight: 700; }
+
+    /* ── CTA ── */
+    .policy-cta { text-align: center; }
+    .policy-cta p { font-size: 14px; color: var(--gray); margin-bottom: 20px; }
+    .metal {
+      display: inline-block; border-radius: 50px; padding: 1.5px;
+      background: linear-gradient(135deg, #c9a84c 0%, #f0d87a 18%, #a8741a 36%, #e8c94e 52%, #c9a84c 68%, #f5e08a 84%, #b08828 100%);
+      box-shadow: 0 6px 24px rgba(180,130,30,0.22), 0 2px 8px rgba(26,39,68,0.12);
+    }
+    .btn-prim {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(26,39,68,0.60);
+      backdrop-filter: blur(24px) saturate(200%); -webkit-backdrop-filter: blur(24px) saturate(200%);
+      border: none; border-radius: 50px; padding: 15px 36px;
+      font-size: 15px; font-weight: 700; font-family: var(--sans);
+      color: #fff; text-decoration: none; cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.18);
+    }
+    .btn-prim:hover { background: rgba(26,39,68,0.82); transform: translateY(-2px); }
+    .btn-line-icon { width: 18px; height: 18px; }
+
+    /* ── FOOTER ── */
+    footer { background: var(--navy); color: rgba(255,255,255,0.55); padding: 48px 0 32px; }
+    .footer-inner { display: flex; justify-content: space-between; align-items: flex-start; gap: 40px; }
+    .footer-brand p { font-size: 13px; margin-top: 6px; line-height: 1.8; }
+    .footer-brand .copy { font-size: 12px; margin-top: 20px; }
+    .footer-nav { display: flex; flex-direction: column; gap: 10px; text-align: right; }
+    .footer-nav a { font-size: 13px; color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.2s; }
+    .footer-nav a:hover { color: #fff; }
+    .footer-logo { font-family: var(--serif); font-size: 20px; font-weight: 900; color: #fff; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 760px) {
+      .container { padding: 0 20px; }
+      .header-nav .hbtn-ig { display: none; }
+      .policy-grid { grid-template-columns: 1fr; }
+      .footer-inner { flex-direction: column; }
+      .footer-nav { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="../" class="logo">OC.LABO</a>
+    <nav class="header-nav">
+      <a href="https://www.instagram.com/oc.labo.kanazawa" target="_blank" rel="noopener" class="hbtn hbtn-ig">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+        Instagram
+      </a>
+      <a href="https://lin.ee/2UVd86X" target="_blank" rel="noopener" class="hbtn hbtn-line">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.03 2 11c0 3.07 1.68 5.78 4.24 7.5L5.5 22l3.76-1.96C10.1 20.33 11.04 20.5 12 20.5c5.52 0 10-4.03 10-9s-4.48-9-10-9z"/></svg>
+        LINE
+      </a>
+      <a href="tel:08019557747" class="hbtn hbtn-call">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.01 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.13 1 .37 1.97.72 2.9a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.18-1.18a2 2 0 012.11-.45c.93.35 1.9.59 2.9.72A2 2 0 0122 16.92z"/></svg>
+        CALL
+      </a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="container">
+    <p class="label">Cancel Policy</p>
+    <h1>キャンセルポリシー</h1>
+    <p>安心してご依頼いただくために、事前にご確認ください。</p>
+  </div>
+</div>
+
+<!-- POLICY -->
+<section class="policy-section">
+  <div class="container">
+
+    <div class="policy-grid">
+
+      <div class="policy-card free">
+        <div class="policy-icon">✓</div>
+        <p class="policy-timing">前日まで</p>
+        <p class="policy-title">無料</p>
+        <p class="policy-desc">作業日前日までのキャンセル・日時変更は、キャンセル料が発生しません。お気軽にご連絡ください。</p>
+      </div>
+
+      <div class="policy-card half">
+        <div class="policy-icon">%</div>
+        <p class="policy-timing">当日キャンセル</p>
+        <p class="policy-title">料金の50%</p>
+        <p class="policy-desc">作業当日のキャンセルは、スタッフの移動・準備が発生するため、作業料金の50%をいただきます。</p>
+      </div>
+
+      <div class="policy-card full">
+        <div class="policy-icon">×</div>
+        <p class="policy-timing">無断キャンセル</p>
+        <p class="policy-title">料金の100%</p>
+        <p class="policy-desc">ご連絡なしのキャンセルは、作業料金の全額を請求させていただく場合があります。</p>
+      </div>
+
+    </div>
+
+    <div class="policy-note">
+      <p>⚡ <strong>日時変更はお早めに。</strong>前日までであれば何度でも無料で変更できます。</p>
+      <p>🌧 <strong>天候・体調など、やむを得ない事情はご相談ください。</strong>柔軟に対応いたします。</p>
+      <p>📩 キャンセル・変更のご連絡は <strong>LINEまたはお電話</strong> にてお願いいたします。</p>
+    </div>
+
+    <div class="policy-cta">
+      <p>ご不明な点はお気軽にLINEでご相談ください</p>
+      <div class="metal">
+        <a href="https://lin.ee/2UVd86X" target="_blank" rel="noopener" class="btn-prim">
+          <svg class="btn-line-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.03 2 11c0 3.07 1.68 5.78 4.24 7.5L5.5 22l3.76-1.96C10.1 20.33 11.04 20.5 12 20.5c5.52 0 10-4.03 10-9s-4.48-9-10-9z"/></svg>
+          LINEで無料相談
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <p class="footer-logo">OC.LABO</p>
+        <p>金沢市のハウスクリーニング<br>エアコンクリーニング・洗濯機分解清掃</p>
+        <p class="copy">© OC.LABO</p>
+      </div>
+      <nav class="footer-nav">
+        <a href="../">TOP</a>
+        <a href="./">キャンセルポリシー</a>
+        <a href="https://www.instagram.com/oc.labo.kanazawa" target="_blank" rel="noopener">Instagram</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
