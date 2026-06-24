@@ -545,94 +545,34 @@
       <p class="section-sub">「ここまで変わる」を、実際の施工写真でご紹介します。</p>
     </div>
     <div class="works-scroll-outer">
-      <div class="works-scroll" id="works-list">
-        <!-- Phase 2以降: works.jsonから動的生成 / 現在は静的プレースホルダー -->
-        <a href="./works/detail/index.html?id=001" class="wcard" style="text-decoration:none;color:inherit;display:block;">
-          <div class="wcard-img">
-            <img src="https://images.unsplash.com/photo-1583845112203-29329902332e?auto=format&fit=crop&w=600&q=80" alt="キッチンシンク水垢除去 金沢市">
-            <span class="wcard-badge">CLEANING DETAIL</span>
-          </div>
-          <div class="wcard-body">
-            <p class="wcard-loc">金沢市</p>
-            <h3 class="wcard-title">金沢市｜キッチンシンクの水垢・くすみ除去</h3>
-            <p class="wcard-desc">シンクまわりの水垢やくすみを丁寧に洗浄。水回り全体の清潔感が伝わる仕上がりに整えました。</p>
-            <div class="wcard-tags">
-              <span class="wcard-tag">水回り清掃</span>
-              <span class="wcard-tag">キッチン清掃</span>
-              <span class="wcard-tag">水垢除去</span>
-            </div>
-          </div>
-        </a>
-
-        <a href="./works/detail/index.html?id=002" class="wcard" style="text-decoration:none;color:inherit;display:block;">
-          <div class="wcard-img">
-            <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&w=600&q=80" alt="浴室鏡ウロコ除去 野々市市">
-            <span class="wcard-badge">CLEANING DETAIL</span>
-          </div>
-          <div class="wcard-body">
-            <p class="wcard-loc">野々市市</p>
-            <h3 class="wcard-title">野々市市｜浴室鏡のウロコ・水垢クリーニング</h3>
-            <p class="wcard-desc">浴室鏡に付着した頑固なウロコ汚れを研磨洗浄。鏡本来の輝きを取り戻しました。</p>
-            <div class="wcard-tags">
-              <span class="wcard-tag">浴室清掃</span>
-              <span class="wcard-tag">鏡研磨</span>
-              <span class="wcard-tag">水垢除去</span>
-            </div>
-          </div>
-        </a>
-
-        <a href="./works/detail/index.html?id=003" class="wcard" style="text-decoration:none;color:inherit;display:block;">
-          <div class="wcard-img">
-            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=600&q=80" alt="レンジフード油汚れ 白山市">
-            <span class="wcard-badge">CLEANING DETAIL</span>
-          </div>
-          <div class="wcard-body">
-            <p class="wcard-loc">白山市</p>
-            <h3 class="wcard-title">白山市｜レンジフード油汚れクリーニング</h3>
-            <p class="wcard-desc">長年蓄積した頑固な油汚れを分解洗浄。フィルターまで徹底的に仕上げました。</p>
-            <div class="wcard-tags">
-              <span class="wcard-tag">換気扇清掃</span>
-              <span class="wcard-tag">油汚れ</span>
-              <span class="wcard-tag">キッチン清掃</span>
-            </div>
-          </div>
-        </a>
-
-        <a href="./works/detail/index.html?id=004" class="wcard" style="text-decoration:none;color:inherit;display:block;">
-          <div class="wcard-img">
-            <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=600&q=80" alt="エアコン分解洗浄 金沢市">
-            <span class="wcard-badge">CLEANING DETAIL</span>
-          </div>
-          <div class="wcard-body">
-            <p class="wcard-loc">金沢市</p>
-            <h3 class="wcard-title">金沢市｜エアコン内部カビ・ニオイ完全除去</h3>
-            <p class="wcard-desc">壁掛けエアコンを分解クリーニング。内部のカビやホコリを徹底除去し、清潔な空気環境を実現しました。</p>
-            <div class="wcard-tags">
-              <span class="wcard-tag">エアコン清掃</span>
-              <span class="wcard-tag">カビ除去</span>
-              <span class="wcard-tag">分解洗浄</span>
-            </div>
-          </div>
-        </a>
-
-        <a href="./works/detail/index.html?id=005" class="wcard" style="text-decoration:none;color:inherit;display:block;">
-          <div class="wcard-img">
-            <img src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=600&q=80" alt="洗濯機分解清掃 金沢市">
-            <span class="wcard-badge">CLEANING DETAIL</span>
-          </div>
-          <div class="wcard-body">
-            <p class="wcard-loc">金沢市</p>
-            <h3 class="wcard-title">金沢市｜縦型洗濯機の分解洗浄</h3>
-            <p class="wcard-desc">洗濯槽を分解し、内部のカビ・黒ずみを根こそぎ除去。洗濯物への嫌なニオイもスッキリ解消しました。</p>
-            <div class="wcard-tags">
-              <span class="wcard-tag">洗濯機清掃</span>
-              <span class="wcard-tag">分解洗浄</span>
-              <span class="wcard-tag">カビ除去</span>
-            </div>
-          </div>
-        </a>
-      </div>
+      <div class="works-scroll" id="works-list"></div>
     </div>
+<script>
+(async function loadWorksPreview() {
+  let works = [];
+  try {
+    const res = await fetch('./data/works.json');
+    if (res.ok) { const d = await res.json(); if (d.length) works = d; }
+  } catch {}
+
+  const list = document.getElementById('works-list');
+  list.innerHTML = works.slice(0, 5).map(w => `
+    <a href="./works/detail/index.html?id=${w.id}" class="wcard" style="text-decoration:none;color:inherit;display:block;">
+      <div class="wcard-img">
+        <img src="${w.img}" alt="${w.title}" loading="lazy"
+             onerror="this.src='https://images.unsplash.com/photo-1585771724684-38269d6639fd?auto=format&fit=crop&w=600&q=80'">
+        <span class="wcard-badge">CLEANING DETAIL</span>
+      </div>
+      <div class="wcard-body">
+        <p class="wcard-loc">${w.area}</p>
+        <h3 class="wcard-title">${w.title}</h3>
+        <p class="wcard-desc">${w.desc}</p>
+        <div class="wcard-tags">${(w.tags||[]).map(t=>`<span class="wcard-tag">${t}</span>`).join('')}</div>
+      </div>
+    </a>
+  `).join('');
+})();
+</script>
     <div class="works-more">
       <a href="./works/" class="btn-ghost">施工事例を見る →</a>
     </div>
