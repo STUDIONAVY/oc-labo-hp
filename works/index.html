@@ -77,24 +77,25 @@
 
     /* WORKS GRID */
     .works-main { padding-bottom: 96px; }
-    .works-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .works-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
 
     .wcard {
       background: var(--white); border-radius: 18px; overflow: hidden;
       box-shadow: 0 4px 20px rgba(26,39,68,0.07);
       transition: transform 0.25s ease, box-shadow 0.25s ease;
+      display: flex; /* 左:画像 / 右:テキスト */
     }
-    .wcard:hover { transform: translateY(-5px); box-shadow: 0 14px 38px rgba(26,39,68,0.13); }
-    .wcard-img { position: relative; aspect-ratio: 4/3; overflow: hidden; }
-    .wcard-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease; }
-    .wcard:hover .wcard-img img { transform: scale(1.04); }
+    .wcard:hover { transform: translateY(-4px); box-shadow: 0 14px 38px rgba(26,39,68,0.13); }
+    .wcard-img { position: relative; width: 40%; flex-shrink: 0; overflow: hidden; background: var(--sand); }
+    .wcard-img img { width: 100%; height: 100%; object-fit: contain; display: block; transition: transform 0.4s ease; }
+    .wcard:hover .wcard-img img { transform: scale(1.03); }
     .wcard-badge {
-      position: absolute; top: 12px; left: 12px;
+      position: absolute; top: 10px; left: 10px;
       background: rgba(26,39,68,0.80); backdrop-filter: blur(6px);
-      color: #fff; font-size: 9.5px; font-weight: 700; letter-spacing: 0.12em;
-      padding: 4px 10px; border-radius: 5px;
+      color: #fff; font-size: 9px; font-weight: 700; letter-spacing: 0.12em;
+      padding: 3px 8px; border-radius: 4px;
     }
-    .wcard-body { padding: 18px 20px 22px; }
+    .wcard-body { padding: 22px 20px; flex: 1; display: flex; flex-direction: column; justify-content: center; }
     .wcard-loc { font-size: 11.5px; color: var(--gray2); margin-bottom: 5px; }
     .wcard-title { font-weight: 700; font-size: 14px; color: var(--navy); margin-bottom: 9px; line-height: 1.5; }
     .wcard-desc { font-size: 12.5px; color: var(--gray); margin-bottom: 14px; line-height: 1.75; }
@@ -150,11 +151,12 @@
     .footer-copy { font-size: 11.5px; color: var(--gray2); border-top: 1px solid var(--border); padding-top: 18px; margin-top: 20px; }
 
     @media (max-width: 900px) {
-      .works-grid { grid-template-columns: repeat(2, 1fr); }
+      .works-grid { grid-template-columns: 1fr; }
       .footer-inner { flex-direction: column; gap: 20px; text-align: center; }
     }
     @media (max-width: 560px) {
-      .works-grid { grid-template-columns: 1fr; }
+      .wcard { flex-direction: column; }
+      .wcard-img { width: 100%; min-height: 240px; }
       .container { padding: 0 20px; }
     }
   </style>

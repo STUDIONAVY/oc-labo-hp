@@ -14,7 +14,7 @@
       --bg: #F9F8F5; --sand: #F2F0EA; --white: #FFFFFF;
       --navy: #1a2744; --gray: #6b7280; --gray2: #9ca3af;
       --border: #e5e3dc; --line: #06C755;
-      --max-w: 860px; /* 記事は読みやすい幅に */
+      --max-w: 1140px;
       --serif: 'Noto Serif JP', serif;
       --sans:  'Noto Sans JP', sans-serif;
     }
@@ -57,16 +57,21 @@
     /* ── ARTICLE LAYOUT ── */
     .article-wrap { max-width: var(--max-w); margin: 0 auto; padding: 0 32px 96px; }
 
+    /* ── 2カラムレイアウト ── */
+    .detail-cols { display: flex; gap: 52px; align-items: flex-start; }
+    .detail-col-img { width: 42%; flex-shrink: 0; position: sticky; top: 80px; }
+    .detail-col-content { flex: 1; min-width: 0; }
+
     /* ── HERO IMAGE ── */
     .article-hero {
-      width: 100%; aspect-ratio: 16/9; border-radius: 20px; overflow: hidden;
-      margin-bottom: 40px;
+      width: 100%; border-radius: 20px; overflow: hidden;
       box-shadow: 0 16px 56px rgba(26,39,68,0.12);
+      background: var(--sand);
     }
-    .article-hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .article-hero img { width: 100%; height: auto; display: block; }
 
     /* ── META ── */
-    .article-meta { margin-bottom: 32px; }
+    .article-meta { margin-bottom: 28px; }
     .article-area {
       display: inline-block; font-size: 11.5px; font-weight: 700;
       color: var(--navy); background: var(--sand); border: 1px solid var(--border);
@@ -181,6 +186,10 @@
     .not-found p { color: var(--gray); margin-bottom: 28px; }
 
     /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .detail-cols { flex-direction: column; }
+      .detail-col-img { width: 100%; position: static; }
+    }
     @media (max-width: 680px) {
       .article-wrap { padding: 0 20px 64px; }
       .ba-grid { grid-template-columns: 1fr; }
@@ -416,43 +425,52 @@
       </div>` : '';
 
     document.getElementById('main-content').innerHTML = `
-      <!-- ヒーロー画像 -->
-      <div class="article-hero">
-        <img src="${work.img}" alt="${work.title}" loading="eager">
-      </div>
+      <!-- 2カラムレイアウト -->
+      <div class="detail-cols">
 
-      <!-- メタ情報 -->
-      <div class="article-meta">
-        <span class="article-area">${work.area}</span>
-        <h1 class="article-title">${work.title}</h1>
-        <div class="article-info">
-          <span>📅 ${work.date ? new Date(work.date).toLocaleDateString('ja-JP', {year:'numeric',month:'long',day:'numeric'}) : ''}</span>
-          <span>🏷 ${work.category}</span>
+        <!-- 左カラム: 画像（sticky） -->
+        <div class="detail-col-img">
+          <div class="article-hero">
+            <img src="${work.img}" alt="${work.title}" loading="eager">
+          </div>
         </div>
-        <div class="article-tags">
-          ${(work.tags || []).map(t => `<span class="article-tag">${t}</span>`).join('')}
+
+        <!-- 右カラム: テキストコンテンツ -->
+        <div class="detail-col-content">
+          <div class="article-meta">
+            <span class="article-area">${work.area}</span>
+            <h1 class="article-title">${work.title}</h1>
+            <div class="article-info">
+              <span>📅 ${work.date ? new Date(work.date).toLocaleDateString('ja-JP', {year:'numeric',month:'long',day:'numeric'}) : ''}</span>
+              <span>🏷 ${work.category}</span>
+            </div>
+            <div class="article-tags">
+              ${(work.tags || []).map(t => `<span class="article-tag">${t}</span>`).join('')}
+            </div>
+          </div>
+
+          <hr>
+
+          <!-- BEFORE / AFTER -->
+          ${baHtml}
+
+          <!-- 本文 -->
+          <div class="article-body">
+            <p>${work.desc}</p>
+            ${work.body || ''}
+          </div>
+
+          <div style="margin-top:40px;">
+            <a href="../" style="color:var(--navy);font-size:13px;font-weight:600;text-decoration:none;">
+              ← 施工事例一覧へ戻る
+            </a>
+          </div>
         </div>
+
       </div>
 
-      <hr>
-
-      <!-- BEFORE / AFTER -->
-      ${baHtml}
-
-      <!-- 本文 -->
-      <div class="article-body">
-        <p>${work.desc}</p>
-        ${work.body || ''}
-      </div>
-
-      <!-- 関連事例 -->
+      <!-- 関連事例（フル幅） -->
       ${relatedHtml}
-
-      <div style="margin-top:48px;">
-        <a href="../" style="color:var(--navy);font-size:13px;font-weight:600;text-decoration:none;">
-          ← 施工事例一覧へ戻る
-        </a>
-      </div>
     `;
   }
 
