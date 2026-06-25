@@ -105,8 +105,23 @@
       padding: 3px 10px; border-radius: 20px;
     }
 
-    /* empty state */
-    .empty-state { text-align: center; padding: 80px 0; color: var(--gray2); font-size: 14px; }
+    /* coming soon */
+    .coming-soon {
+      text-align: center; padding: 96px 0 80px;
+    }
+    .coming-soon-label {
+      display: inline-block;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.2em;
+      color: var(--gray2); border: 1px solid var(--border);
+      padding: 5px 16px; border-radius: 50px; margin-bottom: 28px;
+    }
+    .coming-soon-title {
+      font-family: var(--serif); font-size: clamp(26px, 3vw, 36px);
+      font-weight: 900; color: var(--navy); margin-bottom: 16px;
+    }
+    .coming-soon-body {
+      font-size: 14px; color: var(--gray); line-height: 1.9; max-width: 420px; margin: 0 auto;
+    }
 
     /* FOOTER CTA */
     .foot-cta { background: var(--sand); padding: 72px 0; text-align: center; }
@@ -195,10 +210,14 @@
       <button class="filter-btn" data-filter="空室">空室</button>
     </div>
 
-    <!-- Grid: works.jsonから動的生成 (Phase 2以降自動更新) -->
+    <!-- Grid: works.jsonから動的生成 -->
     <div class="works-grid" id="works-grid"></div>
-    <div class="empty-state" id="empty-state" style="display:none;">
-      該当する施工事例が見つかりませんでした。
+    <div id="coming-soon-block" style="display:none;">
+      <div class="coming-soon">
+        <p class="coming-soon-label">COMING SOON</p>
+        <h2 class="coming-soon-title">施工事例を準備中です</h2>
+        <p class="coming-soon-body">実際の施工写真とともに、順次掲載してまいります。<br>お問い合わせはLINEよりお気軽にどうぞ。</p>
+      </div>
     </div>
 
   </div>
@@ -235,73 +254,6 @@
 </footer>
 
 <script>
-  /* ─────────────────────────────────────────────
-     静的フォールバックデータ（works.jsonが未配置の間使用）
-     Phase 2でn8nがworks.jsonを更新すれば自動的にそちらを優先
-  ───────────────────────────────────────────── */
-  const FALLBACK_WORKS = [
-    {
-      id: "001",
-      title: "金沢市｜キッチンシンクの水垢・くすみ除去",
-      area: "金沢市",
-      category: "水回り",
-      tags: ["水回り清掃", "キッチン清掃", "水垢除去"],
-      desc: "シンクまわりの水垢やくすみを丁寧に洗浄。水回り全体の清潔感が伝わる仕上がりに整えました。",
-      img: "https://images.unsplash.com/photo-1583845112203-29329902332e?auto=format&fit=crop&w=600&q=80",
-      date: "2026-06-01"
-    },
-    {
-      id: "002",
-      title: "野々市市｜浴室鏡のウロコ・水垢クリーニング",
-      area: "野々市市",
-      category: "浴室",
-      tags: ["浴室清掃", "鏡研磨", "水垢除去"],
-      desc: "浴室鏡に付着した頑固なウロコ汚れを研磨洗浄。鏡本来の輝きを取り戻しました。",
-      img: "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&w=600&q=80",
-      date: "2026-06-05"
-    },
-    {
-      id: "003",
-      title: "白山市｜レンジフード油汚れクリーニング",
-      area: "白山市",
-      category: "レンジフード",
-      tags: ["換気扇清掃", "油汚れ", "キッチン清掃"],
-      desc: "長年蓄積した頑固な油汚れを分解洗浄。フィルターまで徹底的に仕上げました。",
-      img: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=600&q=80",
-      date: "2026-06-08"
-    },
-    {
-      id: "004",
-      title: "金沢市｜エアコン内部カビ・ニオイ完全除去",
-      area: "金沢市",
-      category: "エアコン",
-      tags: ["エアコン清掃", "カビ除去", "分解洗浄"],
-      desc: "壁掛けエアコンを分解クリーニング。内部のカビやホコリを徹底除去し、清潔な空気環境を実現しました。",
-      img: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=600&q=80",
-      date: "2026-06-12"
-    },
-    {
-      id: "005",
-      title: "金沢市｜縦型洗濯機の分解洗浄",
-      area: "金沢市",
-      category: "洗濯機",
-      tags: ["洗濯機清掃", "分解洗浄", "カビ除去"],
-      desc: "洗濯槽を分解し、内部のカビ・黒ずみを根こそぎ除去。洗濯物への嫌なニオイもスッキリ解消しました。",
-      img: "https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=600&q=80",
-      date: "2026-06-15"
-    },
-    {
-      id: "006",
-      title: "金沢市｜退去後 空室ハウスクリーニング",
-      area: "金沢市",
-      category: "空室",
-      tags: ["空室清掃", "原状回復", "ハウスクリーニング"],
-      desc: "退去後の物件を丸ごとクリーニング。次の入居者が気持ちよく住めるよう、隅々まで仕上げました。",
-      img: "https://images.unsplash.com/photo-1585771724684-38269d6639fd?auto=format&fit=crop&w=600&q=80",
-      date: "2026-06-18"
-    }
-  ];
-
   function createCard(work) {
     return `
       <a href="./detail/index.html?id=${work.id}" class="wcard" data-category="${work.category}" style="text-decoration:none;color:inherit;display:block;">
@@ -321,41 +273,28 @@
       </a>`;
   }
 
+  let currentWorks = [];
+
   function renderWorks(data) {
     const grid = document.getElementById('works-grid');
-    const empty = document.getElementById('empty-state');
-    // 新しい順にソート
+    const cs = document.getElementById('coming-soon-block');
     const sorted = [...data].sort((a, b) => new Date(b.date) - new Date(a.date));
-    grid.innerHTML = sorted.map(createCard).join('');
-    empty.style.display = sorted.length === 0 ? 'block' : 'none';
-  }
-
-  // works.json を試行 → 失敗したらフォールバック
-  async function loadWorks() {
-    try {
-      const res = await fetch('../data/works.json');
-      if (!res.ok) throw new Error('not found');
-      const data = await res.json();
-      renderWorks(data.length ? data : FALLBACK_WORKS);
-    } catch {
-      renderWorks(FALLBACK_WORKS);
+    if (sorted.length === 0) {
+      grid.innerHTML = '';
+      cs.style.display = 'block';
+    } else {
+      grid.innerHTML = sorted.map(createCard).join('');
+      cs.style.display = 'none';
     }
   }
-
-  loadWorks();
-
-  // Filter
-  let currentWorks = [];
-  const originalLoad = loadWorks;
 
   async function init() {
     try {
       const res = await fetch('../data/works.json');
       if (!res.ok) throw new Error();
-      const data = await res.json();
-      currentWorks = data.length ? data : FALLBACK_WORKS;
+      currentWorks = await res.json();
     } catch {
-      currentWorks = FALLBACK_WORKS;
+      currentWorks = [];
     }
     renderWorks(currentWorks);
   }
@@ -370,9 +309,9 @@
         ? currentWorks
         : currentWorks.filter(w => w.category.includes(f) || w.tags.some(t => t.includes(f)));
       const grid = document.getElementById('works-grid');
-      const empty = document.getElementById('empty-state');
+      const cs = document.getElementById('coming-soon-block');
       grid.innerHTML = filtered.map(createCard).join('');
-      empty.style.display = filtered.length === 0 ? 'block' : 'none';
+      cs.style.display = filtered.length === 0 ? 'block' : 'none';
     });
   });
 </script>
