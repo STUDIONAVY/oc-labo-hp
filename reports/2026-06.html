@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OC.LABO 月次レポート 2026年6月</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:         #F8F8FF;
+  --bg-sub:     #F0F1F5;
+  --bg-card:    #FFFFFF;
+  --ink:        #141822;
+  --ink-mid:    #3D4455;
+  --ink-soft:   #6B7080;
+  --accent-bar: #B8A87C;
+  --label:      #4A4035;
+  --border:     #DFE1E8;
+  --up:         #2E7A4F;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  color: var(--ink);
+}
+
+/* ===================================================================
+   DESKTOP / A4 PRINT LAYOUT (≥794px)
+   =================================================================== */
+
+body { background: #E0E0E8; }
+
+.page {
+  width: 794px;
+  min-height: 1123px;
+  background: var(--bg);
+  margin: 24px auto;
+  padding: 52px 60px 80px;
+  position: relative;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.12);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.page::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #141822 0%, #B8A87C 100%);
+}
+
+.report-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 36px;
+}
+.logo-name { font-size: 18px; font-weight: 200; letter-spacing: 0.14em; }
+.logo-sub  { font-size: 9px; font-weight: 300; letter-spacing: 0.16em; color: var(--ink-soft); margin-top: 4px; text-transform: uppercase; }
+.report-meta { text-align: right; }
+.report-meta .period { font-size: 10px; color: var(--ink-soft); letter-spacing: 0.06em; }
+.report-meta .client { font-size: 12px; color: var(--ink); letter-spacing: 0.06em; margin-top: 4px; }
+
+.section-label {
+  font-size: 9px; font-weight: 300; letter-spacing: 0.22em;
+  color: var(--accent-bar); text-transform: uppercase; margin-bottom: 14px;
+}
+
+/* KPI */
+.kpi-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px;
+}
+.kpi-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 16px 13px; }
+.kpi-lbl  { font-size: 8.5px; color: var(--ink-soft); letter-spacing: 0.08em; line-height: 1.5; margin-bottom: 9px; }
+.kpi-val  { font-size: 28px; font-weight: 200; color: var(--ink); line-height: 1; margin-bottom: 5px; }
+.kpi-val sup { font-size: 13px; }
+.kpi-delta { font-size: 11px; color: var(--up); }
+.kpi-base  { font-size: 8.5px; color: var(--ink-soft); margin-top: 3px; line-height: 1.4; }
+
+/* Note */
+.note-box {
+  background: var(--bg-sub); border-radius: 8px; padding: 11px 15px;
+  font-size: 9.5px; color: var(--ink-mid); line-height: 1.75; margin-bottom: 22px;
+}
+.note-box strong { color: var(--label); }
+
+/* Bar chart */
+.bar-wrap { margin-bottom: 22px; }
+.bar-chart { display: flex; align-items: flex-end; gap: 28px; height: 110px; padding: 0 40px; margin-bottom: 6px; }
+.bar-col   { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 5px; height: 100%; justify-content: flex-end; }
+.bar-val   { font-size: 14px; font-weight: 200; color: var(--ink); }
+.bar-fill  { width: 100%; background: var(--bg-sub); border-radius: 4px 4px 0 0; }
+.bar-fill.hi { background: var(--label); }
+.bar-mo    { font-size: 9px; color: var(--ink-soft); letter-spacing: 0.08em; }
+.bar-mo.hi { color: var(--label); }
+.chart-note { font-size: 8.5px; color: var(--ink-soft); text-align: center; line-height: 1.6; }
+
+hr.divider { border: none; border-top: 1px solid var(--border); margin: 22px 0; }
+
+/* SC table */
+.sc-table { width: 100%; border-collapse: collapse; font-size: 10px; margin-bottom: 10px; }
+.sc-table th { font-size: 8.5px; font-weight: 300; letter-spacing: 0.1em; color: var(--ink-soft); padding: 7px 10px; border-bottom: 1px solid var(--border); text-align: left; }
+.sc-table td { padding: 10px; border-bottom: 1px solid var(--border); color: var(--ink-mid); }
+.sc-table td.v  { font-size: 13px; font-weight: 200; color: var(--ink); }
+.sc-table td.up { color: var(--up); }
+.sc-note { font-size: 8.5px; color: var(--ink-soft); line-height: 1.7; margin-top: 6px; }
+
+/* 施策table */
+.施策-table { width: 100%; border-collapse: collapse; font-size: 10px; margin-bottom: 22px; }
+.施策-table th { background: var(--bg-sub); padding: 8px 12px; text-align: left; font-size: 8.5px; font-weight: 300; letter-spacing: 0.1em; color: var(--ink-soft); }
+.施策-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); color: var(--ink-mid); line-height: 1.6; vertical-align: top; }
+
+/* Policy */
+.policy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 22px; }
+.policy-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 16px 15px; }
+.policy-title { font-size: 8.5px; letter-spacing: 0.16em; color: var(--accent-bar); text-transform: uppercase; margin-bottom: 11px; }
+.policy-item { font-size: 9.5px; color: var(--ink-mid); line-height: 1.65; padding: 5px 0; border-bottom: 1px solid var(--border); }
+.policy-item:last-child { border-bottom: none; }
+
+/* Comment */
+.comment-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 20px 22px; margin-bottom: 22px; }
+.comment-from { font-size: 8.5px; letter-spacing: 0.16em; color: var(--ink-soft); margin-bottom: 10px; }
+.comment-text { font-size: 10.5px; color: var(--ink-mid); line-height: 1.95; }
+
+/* Cumulative table */
+.cumul-wrap { overflow-x: auto; }
+.cumul-table { width: 100%; border-collapse: collapse; font-size: 9.5px; }
+.cumul-table th { background: var(--label); color: #F8F8FF; padding: 8px 12px; text-align: left; font-size: 8.5px; font-weight: 300; letter-spacing: 0.08em; }
+.cumul-table td { padding: 9px 12px; border-bottom: 1px solid var(--border); color: var(--ink-mid); }
+.cumul-table tr.total td { background: var(--bg-sub); color: var(--ink); }
+
+/* Glossary */
+.glossary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.glossary-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 13px 15px; }
+.gl-term { font-size: 10px; font-weight: 300; color: var(--label); letter-spacing: 0.06em; padding-bottom: 6px; margin-bottom: 7px; border-bottom: 1px solid var(--border); }
+.gl-def  { font-size: 9px; color: var(--ink-soft); line-height: 1.75; }
+
+.footer-line { text-align: center; font-size: 8.5px; color: var(--ink-soft); letter-spacing: 0.12em; margin-top: 40px; }
+
+/* ===================================================================
+   MOBILE LAYOUT (≤793px) — スマホネイティブ設計
+   =================================================================== */
+@media (max-width: 793px) {
+  body { background: var(--bg-sub); }
+
+  .page {
+    width: 100%;
+    min-height: unset;
+    margin: 0 0 8px;
+    padding: 0 0 32px;
+    border-radius: 0;
+    box-shadow: none;
+    overflow: visible;
+  }
+  .page::before { height: 4px; }
+  .page:last-child { margin-bottom: 0; }
+
+  /* Mobile header */
+  .report-header {
+    flex-direction: column;
+    gap: 0;
+    margin-bottom: 0;
+    padding: 20px 18px 18px;
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border);
+  }
+  .logo-name { font-size: 16px; letter-spacing: 0.12em; }
+  .logo-sub  { font-size: 8px; margin-top: 3px; }
+  .report-meta { text-align: left; margin-top: 10px; }
+  .report-meta .period { font-size: 10px; }
+  .report-meta .client { font-size: 12px; margin-top: 3px; }
+
+  /* Section blocks */
+  .m-block { padding: 22px 18px 0; }
+
+  .section-label { font-size: 9px; letter-spacing: 0.2em; margin-bottom: 12px; }
+
+  /* KPI 2-column on mobile */
+  .kpi-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 16px;
+    padding: 18px 18px 0;
+  }
+  .kpi-card { padding: 14px 12px; border-radius: 12px; }
+  .kpi-lbl  { font-size: 9px; line-height: 1.4; margin-bottom: 8px; }
+  .kpi-val  { font-size: 30px; }
+  .kpi-val sup { font-size: 14px; }
+  .kpi-delta { font-size: 12px; }
+  .kpi-base  { font-size: 9px; }
+
+  /* Note */
+  .note-box { margin: 12px 18px 0; border-radius: 10px; font-size: 10.5px; padding: 12px 14px; }
+
+  /* Bar chart */
+  .bar-wrap { padding: 18px 18px 0; }
+  .bar-chart { padding: 0 12px; height: 120px; gap: 16px; }
+  .bar-val   { font-size: 15px; }
+  .bar-mo    { font-size: 10px; }
+  .chart-note { font-size: 9.5px; padding: 0 18px; }
+
+  hr.divider { margin: 18px 18px; }
+
+  /* SC table → cards on mobile */
+  .sc-wrap { padding: 0 18px; }
+  .sc-table { font-size: 0; }
+  .sc-table thead { display: none; }
+  .sc-table tbody tr {
+    display: block;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px 14px;
+    margin-bottom: 8px;
+  }
+  .sc-table tbody tr:last-child { margin-bottom: 0; }
+  .sc-table td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    padding: 7px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .sc-table td:last-child { border-bottom: none; padding-bottom: 0; }
+  .sc-table td::before {
+    content: attr(data-label);
+    color: var(--ink-soft);
+    font-size: 10px;
+    flex-shrink: 0;
+    margin-right: 12px;
+  }
+  .sc-table td.v  { font-size: 13px; font-weight: 200; }
+  .sc-table td.up { font-size: 12px; font-weight: 300; }
+  .sc-note { font-size: 9.5px; padding: 0 18px; margin-top: 8px; line-height: 1.7; }
+
+  /* 施策 → cards on mobile */
+  .施策-wrap { padding: 0 18px; }
+  .施策-table { font-size: 0; }
+  .施策-table thead { display: none; }
+  .施策-table tbody tr {
+    display: block;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 8px;
+  }
+  .施策-table tbody tr:last-child { margin-bottom: 0; }
+  .施策-table td { display: block; font-size: 11px; padding: 4px 0; border: none; }
+  .施策-table td::before {
+    content: attr(data-label);
+    font-size: 9px;
+    color: var(--ink-soft);
+    letter-spacing: 0.1em;
+    display: block;
+    margin-bottom: 2px;
+  }
+  .施策-table td[data-label="施策名"] { font-size: 12px; font-weight: 300; color: var(--ink); border-bottom: 1px solid var(--border); padding-bottom: 8px; margin-bottom: 6px; }
+  .施策-table td[data-label="施策名"]::before { display: none; }
+  .施策-table td[data-label="頻度"] { margin-top: 6px; border-top: 1px solid var(--border); padding-top: 8px; color: var(--label); }
+
+  /* Policy grid */
+  .policy-grid { grid-template-columns: 1fr; gap: 8px; padding: 0 18px; margin-bottom: 18px; }
+  .policy-card { border-radius: 12px; padding: 14px 16px; }
+  .policy-title { font-size: 9px; margin-bottom: 10px; }
+  .policy-item  { font-size: 11px; padding: 6px 0; }
+
+  /* Comment */
+  .comment-box { margin: 0 18px 18px; border-radius: 12px; padding: 18px; }
+  .comment-from { font-size: 9px; margin-bottom: 10px; }
+  .comment-text { font-size: 12px; line-height: 1.9; }
+
+  /* Cumulative table */
+  .cumul-wrap { padding: 0 18px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .cumul-table { font-size: 10px; min-width: 480px; }
+  .cumul-table th { font-size: 9px; padding: 8px 10px; white-space: nowrap; }
+  .cumul-table td { padding: 8px 10px; white-space: nowrap; }
+
+  /* Glossary single column */
+  .glossary-grid { grid-template-columns: 1fr; gap: 8px; padding: 0 18px; }
+  .glossary-item { border-radius: 12px; }
+  .gl-term { font-size: 11px; }
+  .gl-def  { font-size: 10.5px; }
+
+  .footer-line { margin-top: 28px; font-size: 9px; padding: 0 18px; }
+}
+
+/* ===================================================================
+   PRINT (A4)
+   =================================================================== */
+@media print {
+  @page { size: A4 portrait; margin: 0; }
+  html, body { margin: 0; padding: 0; background: white; width: 210mm; }
+  .page {
+    width: 210mm; height: 297mm; min-height: unset;
+    margin: 0; padding: 52px 60px 80px;
+    border: none; border-radius: 0; box-shadow: none;
+    overflow: hidden;
+    page-break-after: always; break-after: page;
+    position: relative;
+  }
+  .page + .page { border-top: none; margin-top: 0; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===================== PAGE 1: 実績 ===================== -->
+<div class="page">
+  <div class="report-header">
+    <div>
+      <div class="logo-name">STUDIO NOEMA</div>
+      <div class="logo-sub">Digital Strategy Partner</div>
+    </div>
+    <div class="report-meta">
+      <div class="period">2026年6月レポート（6/1〜6/25）開設3ヶ月対比</div>
+      <div class="client">OC.LABO｜ハウスクリーニング（金沢市）</div>
+    </div>
+  </div>
+
+  <!-- KPI -->
+  <div class="m-block">
+    <div class="section-label">Performance Overview</div>
+  </div>
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-lbl">GBP<br>インタラクション</div>
+      <div class="kpi-val">52</div>
+      <div class="kpi-delta">↑ +86%</div>
+      <div class="kpi-base">3月比（28 → 52）</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-lbl">検索クリック<br>（日割り換算）</div>
+      <div class="kpi-val">1.2<sup>/日</sup></div>
+      <div class="kpi-delta">↑ +133%</div>
+      <div class="kpi-base">3月比（0.5 → 1.17件/日）</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-lbl">検索表示回数<br>（日割り換算）</div>
+      <div class="kpi-val">43<sup>/日</sup></div>
+      <div class="kpi-delta">↑ +86%</div>
+      <div class="kpi-base">3月比（23 → 42.8件/日）</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-lbl">平均CTR</div>
+      <div class="kpi-val">2.7<sup>%</sup></div>
+      <div class="kpi-delta">↑ +0.5pt</div>
+      <div class="kpi-base">3月比（2.2% → 2.7%）</div>
+    </div>
+  </div>
+
+  <div class="note-box">
+    📌 <strong>集計について</strong>　6月は25日時点のデータ。サイト開設が3月24日のため3月は8日間分との比較。日割り換算（1日あたりの値）で比較しています。
+  </div>
+
+  <!-- Bar chart -->
+  <div class="bar-wrap">
+    <div class="m-block" style="padding-bottom:0">
+      <div class="section-label">GBP インタラクション 月別推移</div>
+    </div>
+    <div class="bar-chart">
+      <div class="bar-col">
+        <div class="bar-val">39</div>
+        <div class="bar-fill" style="height:48px"></div>
+        <div class="bar-mo">4月</div>
+      </div>
+      <div class="bar-col">
+        <div class="bar-val">81</div>
+        <div class="bar-fill" style="height:100px"></div>
+        <div class="bar-mo">5月</div>
+      </div>
+      <div class="bar-col">
+        <div class="bar-val">52<span style="font-size:9px;color:var(--ink-soft)"> ※</span></div>
+        <div class="bar-fill hi" style="height:64px"></div>
+        <div class="bar-mo hi">6月</div>
+      </div>
+    </div>
+    <div class="chart-note">※ 6月は月途中（25日時点）。月末換算予測値は約 62。</div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- SC table -->
+  <div class="m-block" style="padding-bottom:0">
+    <div class="section-label">Search Console — 3ヶ月対比</div>
+  </div>
+  <div class="sc-wrap">
+    <table class="sc-table">
+      <thead>
+        <tr>
+          <th>指標</th>
+          <th>3月（8日間）</th>
+          <th>6月（25日間）</th>
+          <th>日割り換算 変化率</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td data-label="指標">検索クリック数</td>
+          <td data-label="3月（8日間）" class="v">4 回</td>
+          <td data-label="6月（25日間）" class="v">28 回</td>
+          <td data-label="日割り換算 変化率" class="up">↑ +133%</td>
+        </tr>
+        <tr>
+          <td data-label="指標">検索表示回数</td>
+          <td data-label="3月（8日間）" class="v">184 回</td>
+          <td data-label="6月（25日間）" class="v">1,027 回</td>
+          <td data-label="日割り換算 変化率" class="up">↑ +86%</td>
+        </tr>
+        <tr>
+          <td data-label="指標">平均 CTR</td>
+          <td data-label="3月（8日間）" class="v">2.2%</td>
+          <td data-label="6月（25日間）" class="v">2.7%</td>
+          <td data-label="日割り換算 変化率" class="up">↑ +0.5pt</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="sc-note">
+    ※ クリック数・表示回数は日割り換算（1日あたり）での比較。<br>
+    　上位クエリ：「エアコンクリーニング」(11クリック)・「ハウスクリーニング 金沢」(6) ほか 228クエリで表示
+  </div>
+</div>
+
+<!-- ===================== PAGE 2: 施策・翌月方針 ===================== -->
+<div class="page">
+  <div class="report-header">
+    <div>
+      <div class="logo-name">STUDIO NOEMA</div>
+      <div class="logo-sub">Digital Strategy Partner</div>
+    </div>
+    <div class="report-meta">
+      <div class="period">2026年6月レポート</div>
+      <div class="client">OC.LABO｜施策・翌月方針</div>
+    </div>
+  </div>
+
+  <div class="m-block">
+    <div class="section-label">今月実施施策</div>
+  </div>
+  <div class="施策-wrap">
+    <table class="施策-table">
+      <thead>
+        <tr><th>施策名</th><th>内容</th><th>頻度</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td data-label="施策名">Googleマップ 写真投稿</td>
+          <td data-label="内容">BEFORE/AFTER施工写真をGBPに投稿。エアコン・浴室・洗濯機など清掃箇所ごとに掲載</td>
+          <td data-label="頻度">週3回</td>
+        </tr>
+        <tr>
+          <td data-label="施策名">GBP テキスト投稿</td>
+          <td data-label="内容">施工事例をもとにした投稿文を作成・公開。地域キーワード・清掃サービス名を含める</td>
+          <td data-label="頻度">週3回</td>
+        </tr>
+        <tr>
+          <td data-label="施策名">HP 施工事例ページ公開</td>
+          <td data-label="内容">Webサイトに施工事例ページを新設。7件の施工実績を画像・説明文付きで掲載開始</td>
+          <td data-label="頻度">公開完了（6月）</td>
+        </tr>
+        <tr>
+          <td data-label="施策名">GA4 設置</td>
+          <td data-label="内容">全ページにGoogle Analytics 4（G-N1RRNS1RSK）を設置。ウェブ計測体制を整備</td>
+          <td data-label="頻度">完了（6月）</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="divider">
+
+  <div class="m-block" style="padding-bottom:0">
+    <div class="section-label">翌月（7月）の方針</div>
+  </div>
+  <div class="policy-grid">
+    <div class="policy-card">
+      <div class="policy-title">継続施策</div>
+      <div class="policy-item">Googleマップ 写真投稿（週3回）</div>
+      <div class="policy-item">GBP テキスト投稿（週3回）</div>
+      <div class="policy-item">HP施工事例 自動更新（n8n稼働中）</div>
+    </div>
+    <div class="policy-card">
+      <div class="policy-title">追加・強化施策</div>
+      <div class="policy-item">GA4データを活用した流入経路の分析・最適化開始</div>
+      <div class="policy-item">夏のエアコンシーズンに向けたキーワード強化</div>
+      <div class="policy-item">月次レポートへのGA4データ統合</div>
+    </div>
+  </div>
+
+  <div class="comment-box">
+    <div class="comment-from">STUDIO NOEMA より</div>
+    <div class="comment-text">
+      サイト開設から約3ヶ月で、検索クリック数が日割り換算+133%と着実な成長を見せています。GBPのインタラクションも3月の28から6月52へ+86%増加しており、毎週3回のGoogleマップ投稿継続の効果が数字に表れています。<br><br>
+      検索上位キーワードも「エアコンクリーニング」を中心に228クエリへ拡大しており、金沢市エリアでの検索認知が着実に広がっています。7月はエアコン需要がピークを迎えるシーズンです。現在の施策ペースを維持しながら、GA4のデータ活用による精度の高い改善サイクルに入れるタイミングです。引き続きよろしくお願いいたします。
+    </div>
+  </div>
+
+  <div class="m-block" style="padding-bottom:0">
+    <div class="section-label">累計実績（サイト開設〜2026年6月25日）</div>
+  </div>
+  <div class="cumul-wrap">
+    <table class="cumul-table">
+      <thead>
+        <tr>
+          <th>期間</th>
+          <th>検索クリック</th>
+          <th>表示回数</th>
+          <th>GBP</th>
+          <th>クチコミ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>3月（開設〜月末）</td><td>4 回</td><td>184 回</td><td>28</td><td>—</td></tr>
+        <tr><td>4月</td><td>—</td><td>—</td><td>39</td><td>—</td></tr>
+        <tr><td>5月</td><td>—</td><td>—</td><td>81</td><td>—</td></tr>
+        <tr><td>6月（〜25日）</td><td>28 回</td><td>1,027 回</td><td>52</td><td>34件 ★5.0</td></tr>
+        <tr class="total"><td>累計（3〜6月）</td><td>87 回</td><td>3,190 回</td><td>293</td><td>34件 ★5.0</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ===================== PAGE 3: 用語解説 ===================== -->
+<div class="page">
+  <div class="report-header">
+    <div>
+      <div class="logo-name">STUDIO NOEMA</div>
+      <div class="logo-sub">Digital Strategy Partner</div>
+    </div>
+    <div class="report-meta">
+      <div class="period">2026年6月レポート</div>
+      <div class="client">OC.LABO｜用語解説</div>
+    </div>
+  </div>
+
+  <div class="m-block" style="padding-bottom:0">
+    <div class="section-label">用語解説 — Glossary</div>
+  </div>
+  <div class="glossary-grid" style="margin-top:4px">
+    <div class="glossary-item">
+      <div class="gl-term">MEO（Map Engine Optimization）</div>
+      <div class="gl-def">Googleマップ上での店舗・ビジネスの表示順位を高めるための施策。Googleビジネスプロフィールの最適化、写真投稿、テキスト投稿、クチコミ管理などが中心となります。</div>
+    </div>
+    <div class="glossary-item">
+      <div class="gl-term">GBP（Google Business Profile）</div>
+      <div class="gl-def">Googleが提供するビジネス情報管理ツール。Googleマップや検索結果に表示される店舗情報（写真・営業時間・投稿など）を管理できます。</div>
+    </div>
+    <div class="glossary-item">
+      <div class="gl-term">掲載順位（平均順位）</div>
+      <div class="gl-def">Googleの検索結果でサイトが表示された際の平均的な掲載位置。数字が小さいほど上位表示を意味します。1位が最上位、10位が1ページ目の末尾が目安です。</div>
+    </div>
+    <div class="glossary-item">
+      <div class="gl-term">表示回数（インプレッション）</div>
+      <div class="gl-def">Google検索結果にサイトのリンクが表示された回数。ユーザーがクリックしなくても、表示されるだけでカウントされます。認知拡大の指標です。</div>
+    </div>
+    <div class="glossary-item">
+      <div class="gl-term">CTR（クリック率）</div>
+      <div class="gl-def">検索結果に表示された回数に対して、実際にクリックされた割合（クリック数÷表示回数）。CTRが高いほど、タイトルや説明文が魅力的と判断できます。</div>
+    </div>
+    <div class="glossary-item">
+      <div class="gl-term">GBP インタラクション</div>
+      <div class="gl-def">Googleビジネスプロフィールを通じてユーザーが行ったアクションの総数。ウェブサイトへのクリック・ルート検索・電話などが含まれます。</div>
+    </div>
+    <div class="glossary-item">
+      <div class="gl-term">Search Console（GSC）</div>
+      <div class="gl-def">Googleが提供する無料の検索パフォーマンス分析ツール。サイトへの検索流入データ（クリック数・表示回数・掲載順位・CTRなど）を確認できます。</div>
+    </div>
+    <div class="glossary-item">
+      <div class="gl-term">GA4（Google Analytics 4）</div>
+      <div class="gl-def">Googleの次世代ウェブ解析ツール。サイト訪問者数・流入元・閲覧ページなどを計測します。2026年6月よりOC.LABOサイトに設置し、計測を開始しました。</div>
+    </div>
+  </div>
+  <div class="footer-line">
+    STUDIO NOEMA — Digital Strategy Partner &nbsp;｜&nbsp; studio.navy.0000@gmail.com
+  </div>
+</div>
+
+</body>
+</html>
