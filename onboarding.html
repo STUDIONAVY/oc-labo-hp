@@ -229,6 +229,7 @@
           </svg>
           LINEで友達追加する
         </a>
+        <p id="pc-note" style="display:none;font-size:11.5px;color:var(--ink-soft);text-align:center;margin-top:8px;line-height:1.7;">PCをご覧の場合はQRコードが表示されます。<br>スマートフォンで読み取るか、スマートフォンからこのページを開いてボタンをタップしてください。</p>
         <div class="note">追加が完了すると弊社から確認メッセージが届きます。届かない場合はご連絡ください。</div>
       </div>
       <button class="done-btn" onclick="markDone(1)">✓ このステップを完了にする</button>
@@ -330,6 +331,12 @@
 <footer>STUDIO NOEMA &nbsp;|&nbsp; studio.navy.0000@gmail.com</footer>
 
 <script>
+  // PC判定：LINE追加ボタンの補足を表示
+  if (!/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+    const n = document.getElementById('pc-note');
+    if (n) n.style.display = 'block';
+  }
+
   const TOTAL = 4;
   const done = new Set();
 
