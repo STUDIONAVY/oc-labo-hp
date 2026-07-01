@@ -9,82 +9,115 @@
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg:       #F8F8FF;
-    --bg-sub:   #F0F1F5;
-    --ink:      #141822;
-    --ink-mid:  #3D4455;
-    --ink-soft: #6B7080;
-    --accent:   #B8A87C;
-    --label:    #4A4035;
-    --border:   #DFE1E8;
+    --bg:         #F8F8FF;
+    --bg-sub:     #F0F1F5;
+    --ink:        #141822;
+    --ink-mid:    #3D4455;
+    --ink-soft:   #6B7080;
+    --accent:     #B8A87C;
+    --label:      #4A4035;
+    --border:     #DFE1E8;
     --line-green: #06C755;
+    --done-bg:    #F0FAF4;
+    --done-border:#A8D8B9;
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
   body {
     font-family: 'Jost', 'Hiragino Kaku Gothic Pro', sans-serif;
     font-weight: 300;
     background: var(--bg-sub);
     color: var(--ink);
     min-height: 100vh;
+    padding-top: 64px; /* sticky bar height */
   }
 
-  .site-header {
+  /* ── Sticky progress bar ── */
+  .progress-bar-wrap {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     background: var(--ink);
-    padding: 18px 24px;
+    padding: 12px 20px 10px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.25);
   }
+  .progress-top {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 8px;
+  }
+  .progress-logo { font-size: 12px; font-weight: 200; letter-spacing: 0.16em; color: rgba(255,255,255,0.6); }
+  .progress-logo span { color: var(--accent); }
+  .progress-label { font-size: 12px; color: #fff; letter-spacing: 0.06em; }
+  .progress-label .count { color: var(--accent); font-weight: 400; }
+  .progress-track {
+    height: 4px; background: rgba(255,255,255,0.15); border-radius: 2px; overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%; background: var(--line-green);
+    border-radius: 2px;
+    transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
+    width: 0%;
+  }
+
+  /* ── Header ── */
+  .site-header { background: var(--ink); padding: 18px 24px; }
   .site-header .logo { font-size: 15px; font-weight: 200; letter-spacing: 0.18em; color: #fff; }
   .site-header .logo span { color: var(--accent); }
 
+  /* ── Hero ── */
   .hero {
     background: linear-gradient(135deg, var(--ink) 0%, #2a2f40 100%);
-    padding: 48px 24px 40px;
-    text-align: center;
+    padding: 40px 24px 36px; text-align: center;
   }
-  .hero .eyebrow {
-    font-size: 10px; letter-spacing: 0.28em; color: var(--accent);
-    text-transform: uppercase; margin-bottom: 14px;
-  }
-  .hero h1 {
-    font-size: 22px; font-weight: 200; color: #fff;
-    letter-spacing: 0.06em; line-height: 1.55; margin-bottom: 16px;
-  }
-  .hero p {
-    font-size: 13px; color: rgba(255,255,255,0.6);
-    line-height: 1.8; max-width: 320px; margin: 0 auto;
-  }
-  .time-badge {
-    display: flex; align-items: center; justify-content: center;
-    gap: 8px; margin-top: 24px;
-  }
-  .time-badge .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+  .hero .eyebrow { font-size: 10px; letter-spacing: 0.28em; color: var(--accent); text-transform: uppercase; margin-bottom: 12px; }
+  .hero h1 { font-size: 22px; font-weight: 200; color: #fff; letter-spacing: 0.06em; line-height: 1.55; margin-bottom: 14px; }
+  .hero p { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.8; max-width: 320px; margin: 0 auto; }
+  .time-badge { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 20px; }
+  .time-badge .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
   .time-badge span { font-size: 11px; color: rgba(255,255,255,0.5); letter-spacing: 0.12em; }
 
-  .main { padding: 32px 16px 64px; max-width: 480px; margin: 0 auto; }
+  /* ── Main ── */
+  .main { padding: 28px 16px 64px; max-width: 480px; margin: 0 auto; }
 
+  /* ── Step card ── */
   .step-card {
     background: #fff; border-radius: 16px;
     border: 1px solid var(--border);
-    margin-bottom: 16px; overflow: hidden;
+    margin-bottom: 14px; overflow: hidden;
+    transition: border-color 0.3s, background 0.3s, opacity 0.3s;
   }
-  .step-head {
-    display: flex; align-items: center; gap: 14px;
-    padding: 20px 20px 16px;
+  .step-card.done {
+    background: var(--done-bg);
+    border-color: var(--done-border);
+    opacity: 0.85;
   }
+  .step-head { display: flex; align-items: center; gap: 14px; padding: 18px 20px 14px; }
   .step-num {
-    flex-shrink: 0;
-    width: 36px; height: 36px; border-radius: 50%;
+    flex-shrink: 0; width: 36px; height: 36px; border-radius: 50%;
     background: var(--ink); color: #fff;
     display: flex; align-items: center; justify-content: center;
     font-size: 13px; font-weight: 400;
+    transition: background 0.3s;
+    position: relative;
   }
   .step-num.line-color { background: var(--line-green); }
+  .step-num.done-num { background: #2E7A4F; }
+  .step-num .check-icon {
+    display: none; position: absolute; inset: 0;
+    align-items: center; justify-content: center;
+    font-size: 16px;
+  }
+  .step-card.done .step-num .num-text { display: none; }
+  .step-card.done .step-num .check-icon { display: flex; }
+
   .step-title-group { flex: 1; }
   .step-service { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 3px; }
-  .step-title { font-size: 15px; font-weight: 400; color: var(--ink); letter-spacing: 0.04em; }
+  .step-title { font-size: 15px; font-weight: 400; color: var(--ink); }
+  .step-card.done .step-title { color: var(--ink-soft); text-decoration: line-through; text-decoration-color: var(--done-border); }
+
   .step-body { padding: 0 20px 20px; }
   .step-body p { font-size: 12.5px; color: var(--ink-mid); line-height: 1.85; margin-bottom: 14px; }
+
+  /* content collapses when done */
+  .step-content { overflow: hidden; transition: max-height 0.4s ease, opacity 0.3s; max-height: 600px; opacity: 1; }
+  .step-card.done .step-content { max-height: 0; opacity: 0; }
 
   .instr-list { list-style: none; padding: 0; }
   .instr-list li {
@@ -94,56 +127,74 @@
   }
   .instr-list li:last-child { border-bottom: none; }
   .instr-list .n {
-    flex-shrink: 0; width: 20px; height: 20px;
-    border-radius: 4px; background: var(--bg-sub);
-    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; width: 20px; height: 20px; border-radius: 4px;
+    background: var(--bg-sub); display: flex; align-items: center; justify-content: center;
     font-size: 10px; color: var(--ink-soft); margin-top: 1px;
   }
 
   .cta-btn {
     display: flex; align-items: center; justify-content: center; gap: 10px;
-    width: 100%; padding: 15px 20px;
-    border-radius: 12px; border: none; cursor: pointer;
-    font-family: inherit; font-size: 14px; font-weight: 400;
-    letter-spacing: 0.06em; text-decoration: none;
-    margin-top: 16px;
+    width: 100%; padding: 15px 20px; border-radius: 12px; border: none; cursor: pointer;
+    font-family: inherit; font-size: 14px; font-weight: 400; letter-spacing: 0.06em;
+    text-decoration: none; margin-top: 16px; margin-bottom: 14px;
   }
   .cta-line { background: var(--line-green); color: #fff; }
 
   .email-pill {
-    display: inline-block;
-    background: var(--bg-sub); border: 1px solid var(--border);
-    border-radius: 6px; padding: 4px 10px;
-    font-size: 12px; color: var(--label);
-    letter-spacing: 0.04em; margin: 4px 0 10px;
-    font-weight: 400; word-break: break-all;
+    display: inline-block; background: var(--bg-sub); border: 1px solid var(--border);
+    border-radius: 6px; padding: 4px 10px; font-size: 12px; color: var(--label);
+    letter-spacing: 0.04em; margin: 4px 0 14px; font-weight: 400; word-break: break-all;
   }
 
   .note {
-    background: #FFFBF0; border: 1px solid #F0D88A;
-    border-radius: 10px; padding: 12px 15px;
-    font-size: 11.5px; color: #6B4C00;
-    line-height: 1.75; margin-top: 14px;
+    background: #FFFBF0; border: 1px solid #F0D88A; border-radius: 10px;
+    padding: 12px 15px; font-size: 11.5px; color: #6B4C00; line-height: 1.75; margin-top: 14px;
   }
   .note::before { content: "💡 "; }
 
+  /* ── Done button ── */
+  .done-btn {
+    width: 100%; padding: 13px; border-radius: 10px;
+    border: 1.5px solid var(--border); background: #fff;
+    font-family: inherit; font-size: 13px; color: var(--ink-soft);
+    cursor: pointer; letter-spacing: 0.06em;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+    margin-top: 16px;
+  }
+  .done-btn:hover { border-color: #2E7A4F; color: #2E7A4F; }
+
+  /* ── Complete banner ── */
   .complete-banner {
     background: linear-gradient(135deg, #1a4d2e 0%, #2E7A4F 100%);
-    border-radius: 16px; padding: 28px 24px;
-    text-align: center; margin-top: 8px;
+    border-radius: 16px; padding: 28px 24px; text-align: center;
+    margin-top: 8px;
+    display: none;
+    animation: fadeUp 0.5s ease forwards;
   }
-  .complete-banner .check { font-size: 32px; margin-bottom: 10px; }
-  .complete-banner h2 { font-size: 16px; font-weight: 300; color: #fff; letter-spacing: 0.08em; margin-bottom: 8px; }
-  .complete-banner p { font-size: 12px; color: rgba(255,255,255,0.65); line-height: 1.75; }
+  .complete-banner.visible { display: block; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .complete-banner .check { font-size: 40px; margin-bottom: 12px; }
+  .complete-banner h2 { font-size: 18px; font-weight: 300; color: #fff; letter-spacing: 0.08em; margin-bottom: 10px; }
+  .complete-banner p { font-size: 12.5px; color: rgba(255,255,255,0.7); line-height: 1.8; }
 
   footer { text-align: center; padding: 24px 16px; font-size: 10px; color: var(--ink-soft); letter-spacing: 0.1em; }
 </style>
 </head>
 <body>
 
-<header class="site-header">
-  <div class="logo">STUDIO <span>NOEMA</span></div>
-</header>
+<!-- ── Sticky progress bar ── -->
+<div class="progress-bar-wrap">
+  <div class="progress-top">
+    <div class="progress-logo">STUDIO <span>NOEMA</span></div>
+    <div class="progress-label"><span class="count" id="count">0</span> / 4 完了</div>
+  </div>
+  <div class="progress-track">
+    <div class="progress-fill" id="fill"></div>
+  </div>
+</div>
 
 <div class="hero">
   <div class="eyebrow">Onboarding</div>
@@ -158,103 +209,165 @@
 <div class="main">
 
   <!-- STEP 1: LINE -->
-  <div class="step-card">
+  <div class="step-card" id="step-1">
     <div class="step-head">
-      <div class="step-num line-color">1</div>
+      <div class="step-num line-color" id="num-1">
+        <span class="num-text">1</span>
+        <span class="check-icon">✓</span>
+      </div>
       <div class="step-title-group">
         <div class="step-service">LINE</div>
         <div class="step-title">公式アカウントを友達追加</div>
       </div>
     </div>
     <div class="step-body">
-      <p>毎月の実績レポートをLINEでお届けします。まず弊社のLINE公式アカウントを友達として登録してください。</p>
-      <a href="https://line.me/ti/p/@214xkwtm" class="cta-btn cta-line">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-          <path d="M12 2C6.48 2 2 5.92 2 10.72c0 3.12 1.76 5.88 4.4 7.56-.18.64-.68 2.32-.78 2.68-.12.44.16.44.34.32.14-.08 2.24-1.48 3.16-2.08.6.1 1.24.16 1.88.16 5.52 0 10-3.92 10-8.64C22 5.92 17.52 2 12 2z" fill="white"/>
-        </svg>
-        LINEで友達追加する
-      </a>
-      <div class="note">追加が完了すると弊社から確認メッセージが届きます。届かない場合はご連絡ください。</div>
+      <div class="step-content">
+        <p>毎月の実績レポートをLINEでお届けします。まず弊社のLINE公式アカウントを友達として登録してください。</p>
+        <a href="https://line.me/ti/p/@214xkwtm" class="cta-btn cta-line">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2C6.48 2 2 5.92 2 10.72c0 3.12 1.76 5.88 4.4 7.56-.18.64-.68 2.32-.78 2.68-.12.44.16.44.34.32.14-.08 2.24-1.48 3.16-2.08.6.1 1.24.16 1.88.16 5.52 0 10-3.92 10-8.64C22 5.92 17.52 2 12 2z" fill="white"/>
+          </svg>
+          LINEで友達追加する
+        </a>
+        <div class="note">追加が完了すると弊社から確認メッセージが届きます。届かない場合はご連絡ください。</div>
+      </div>
+      <button class="done-btn" onclick="markDone(1)">✓ このステップを完了にする</button>
     </div>
   </div>
 
   <!-- STEP 2: GA4 -->
-  <div class="step-card">
+  <div class="step-card" id="step-2">
     <div class="step-head">
-      <div class="step-num">2</div>
+      <div class="step-num" id="num-2">
+        <span class="num-text">2</span>
+        <span class="check-icon">✓</span>
+      </div>
       <div class="step-title-group">
         <div class="step-service">Google Analytics</div>
         <div class="step-title">アクセス権限を共有</div>
       </div>
     </div>
     <div class="step-body">
-      <p>ウェブサイトへのアクセス状況を確認するためのツールです。閲覧権限を共有していただきます。</p>
-      <ul class="instr-list">
-        <li><span class="n">1</span><span><a href="https://analytics.google.com" target="_blank" style="color:var(--label)">analytics.google.com</a> にアクセスしてログイン</span></li>
-        <li><span class="n">2</span><span>左下「管理」（歯車）→「アカウントのアクセス管理」をクリック</span></li>
-        <li><span class="n">3</span><span>右上「＋」→「ユーザーを追加」をクリック</span></li>
-        <li><span class="n">4</span><span>以下のメールアドレスを入力し、役割は<strong>「閲覧者」</strong>を選んで追加</span></li>
-      </ul>
-      <div class="email-pill">studio.navy.0000@gmail.com</div>
-      <div class="note">「閲覧者」のためデータの変更・削除はできません。安心してご共有ください。</div>
+      <div class="step-content">
+        <p>ウェブサイトへのアクセス状況を確認するためのツールです。閲覧権限を共有していただきます。</p>
+        <ul class="instr-list">
+          <li><span class="n">1</span><span><a href="https://analytics.google.com" target="_blank" style="color:var(--label)">analytics.google.com</a> にアクセスしてログイン</span></li>
+          <li><span class="n">2</span><span>左下「管理」（歯車）→「アカウントのアクセス管理」をクリック</span></li>
+          <li><span class="n">3</span><span>右上「＋」→「ユーザーを追加」をクリック</span></li>
+          <li><span class="n">4</span><span>以下のメールアドレスを入力し、役割は<strong>「閲覧者」</strong>を選んで追加</span></li>
+        </ul>
+        <div class="email-pill">studio.navy.0000@gmail.com</div>
+        <div class="note">「閲覧者」のためデータの変更・削除はできません。安心してご共有ください。</div>
+      </div>
+      <button class="done-btn" onclick="markDone(2)">✓ このステップを完了にする</button>
     </div>
   </div>
 
   <!-- STEP 3: GSC -->
-  <div class="step-card">
+  <div class="step-card" id="step-3">
     <div class="step-head">
-      <div class="step-num">3</div>
+      <div class="step-num" id="num-3">
+        <span class="num-text">3</span>
+        <span class="check-icon">✓</span>
+      </div>
       <div class="step-title-group">
         <div class="step-service">Google Search Console</div>
         <div class="step-title">アクセス権限を共有</div>
       </div>
     </div>
     <div class="step-body">
-      <p>検索エンジンでの表示状況を確認するツールです。こちらも閲覧権限の共有をお願いします。</p>
-      <ul class="instr-list">
-        <li><span class="n">1</span><span><a href="https://search.google.com/search-console" target="_blank" style="color:var(--label)">search.google.com/search-console</a> にアクセスしてログイン</span></li>
-        <li><span class="n">2</span><span>左メニュー下部「設定」→「ユーザーと権限」をクリック</span></li>
-        <li><span class="n">3</span><span>「ユーザーを追加」をクリック</span></li>
-        <li><span class="n">4</span><span>以下のメールアドレスを入力し、権限は<strong>「制限付き」</strong>を選んで追加</span></li>
-      </ul>
-      <div class="email-pill">studio.navy.0000@gmail.com</div>
+      <div class="step-content">
+        <p>検索エンジンでの表示状況を確認するツールです。こちらも閲覧権限の共有をお願いします。</p>
+        <ul class="instr-list">
+          <li><span class="n">1</span><span><a href="https://search.google.com/search-console" target="_blank" style="color:var(--label)">search.google.com/search-console</a> にアクセスしてログイン</span></li>
+          <li><span class="n">2</span><span>左メニュー下部「設定」→「ユーザーと権限」をクリック</span></li>
+          <li><span class="n">3</span><span>「ユーザーを追加」をクリック</span></li>
+          <li><span class="n">4</span><span>以下のメールアドレスを入力し、権限は<strong>「制限付き」</strong>を選んで追加</span></li>
+        </ul>
+        <div class="email-pill">studio.navy.0000@gmail.com</div>
+      </div>
+      <button class="done-btn" onclick="markDone(3)">✓ このステップを完了にする</button>
     </div>
   </div>
 
   <!-- STEP 4: GBP -->
-  <div class="step-card">
+  <div class="step-card" id="step-4">
     <div class="step-head">
-      <div class="step-num">4</div>
+      <div class="step-num" id="num-4">
+        <span class="num-text">4</span>
+        <span class="check-icon">✓</span>
+      </div>
       <div class="step-title-group">
         <div class="step-service">Google ビジネスプロフィール</div>
         <div class="step-title">アクセス権限を共有</div>
       </div>
     </div>
     <div class="step-body">
-      <p>Googleマップ上の口コミや閲覧数など、集客データの確認に必要です。</p>
-      <ul class="instr-list">
-        <li><span class="n">1</span><span><a href="https://business.google.com" target="_blank" style="color:var(--label)">business.google.com</a> にアクセスしてログイン</span></li>
-        <li><span class="n">2</span><span>管理したいビジネスを選択</span></li>
-        <li><span class="n">3</span><span>「ビジネス情報」→「管理者」→「管理者を追加」をクリック</span></li>
-        <li><span class="n">4</span><span>以下のメールアドレスを入力し、役割は<strong>「管理者」</strong>を選んで送信</span></li>
-      </ul>
-      <div class="email-pill">studio.navy.0000@gmail.com</div>
-      <div class="note">招待メールが届いた後、弊社が承認して設定完了となります。</div>
+      <div class="step-content">
+        <p>Googleマップ上の口コミや閲覧数など、集客データの確認に必要です。</p>
+        <ul class="instr-list">
+          <li><span class="n">1</span><span><a href="https://business.google.com" target="_blank" style="color:var(--label)">business.google.com</a> にアクセスしてログイン</span></li>
+          <li><span class="n">2</span><span>管理したいビジネスを選択</span></li>
+          <li><span class="n">3</span><span>「ビジネス情報」→「管理者」→「管理者を追加」をクリック</span></li>
+          <li><span class="n">4</span><span>以下のメールアドレスを入力し、役割は<strong>「管理者」</strong>を選んで送信</span></li>
+        </ul>
+        <div class="email-pill">studio.navy.0000@gmail.com</div>
+        <div class="note">招待メールが届いた後、弊社が承認して設定完了となります。</div>
+      </div>
+      <button class="done-btn" onclick="markDone(4)">✓ このステップを完了にする</button>
     </div>
   </div>
 
-  <!-- Complete -->
-  <div class="complete-banner">
-    <div class="check">✓</div>
-    <h2>4ステップで完了です</h2>
-    <p>すべての作業が終わりましたら、LINE またはメールにてご連絡ください。<br>弊社にて確認後、サービスを開始いたします。</p>
+  <!-- Complete banner -->
+  <div class="complete-banner" id="complete-banner">
+    <div class="check">🎉</div>
+    <h2>すべての作業が完了しました</h2>
+    <p>ありがとうございます。弊社にて設定を確認し、<br>サービス開始のご案内をLINEでお送りします。</p>
   </div>
 
 </div>
 
-<footer>
-  STUDIO NOEMA &nbsp;|&nbsp; studio.navy.0000@gmail.com
-</footer>
+<footer>STUDIO NOEMA &nbsp;|&nbsp; studio.navy.0000@gmail.com</footer>
 
+<script>
+  const TOTAL = 4;
+  const done = new Set();
+
+  // Restore from localStorage
+  try {
+    const saved = JSON.parse(localStorage.getItem('onboarding_done') || '[]');
+    saved.forEach(n => { done.add(n); applyDone(n); });
+    updateBar();
+  } catch(e) {}
+
+  function markDone(n) {
+    if (done.has(n)) return;
+    done.add(n);
+    applyDone(n);
+    updateBar();
+    try { localStorage.setItem('onboarding_done', JSON.stringify([...done])); } catch(e) {}
+  }
+
+  function applyDone(n) {
+    const card = document.getElementById('step-' + n);
+    const num  = document.getElementById('num-' + n);
+    if (!card) return;
+    card.classList.add('done');
+    num.classList.add('done-num');
+    num.classList.remove('line-color');
+    const btn = card.querySelector('.done-btn');
+    if (btn) { btn.textContent = '✓ 完了'; btn.disabled = true; btn.style.background = 'var(--done-bg)'; btn.style.borderColor = 'var(--done-border)'; btn.style.color = '#2E7A4F'; }
+  }
+
+  function updateBar() {
+    const c = done.size;
+    document.getElementById('count').textContent = c;
+    document.getElementById('fill').style.width = (c / TOTAL * 100) + '%';
+    if (c === TOTAL) {
+      document.getElementById('complete-banner').classList.add('visible');
+      document.getElementById('complete-banner').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }
+</script>
 </body>
 </html>
