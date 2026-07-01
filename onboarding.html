@@ -223,7 +223,7 @@
     <div class="step-body">
       <div class="step-content">
         <p>毎月の実績レポートをLINEでお届けします。まず弊社のLINE公式アカウントを友達として登録してください。</p>
-        <a href="https://line.me/ti/p/@214xkwtm" class="cta-btn cta-line">
+        <a href="line://ti/p/@214xkwtm" class="cta-btn cta-line">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
             <path d="M12 2C6.48 2 2 5.92 2 10.72c0 3.12 1.76 5.88 4.4 7.56-.18.64-.68 2.32-.78 2.68-.12.44.16.44.34.32.14-.08 2.24-1.48 3.16-2.08.6.1 1.24.16 1.88.16 5.52 0 10-3.92 10-8.64C22 5.92 17.52 2 12 2z" fill="white"/>
           </svg>
@@ -328,7 +328,9 @@
 
 </div>
 
-<footer>STUDIO NOEMA &nbsp;|&nbsp; studio.navy.0000@gmail.com</footer>
+<footer>STUDIO NOEMA &nbsp;|&nbsp; studio.navy.0000@gmail.com
+  <br><span onclick="localStorage.removeItem('onboarding_done');location.reload();" style="font-size:9px;color:transparent;user-select:none;cursor:default;">reset</span>
+</footer>
 
 <script>
   // PC判定：LINE追加ボタンの補足を表示
