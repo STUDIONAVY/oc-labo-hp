@@ -565,7 +565,7 @@
 
   const list = document.getElementById('works-list');
   list.innerHTML = works.slice(0, 5).map(w => `
-    <a href="./works/detail/index.html?id=${w.id}" class="wcard" style="text-decoration:none;color:inherit;display:block;">
+    <a href="./works/${w.id}/" class="wcard" style="text-decoration:none;color:inherit;display:block;">
       <div class="wcard-img">
         <img src="${w.img}" alt="${w.title}" loading="lazy"
              onerror="this.src='https://images.unsplash.com/photo-1585771724684-38269d6639fd?auto=format&fit=crop&w=600&q=80'">
