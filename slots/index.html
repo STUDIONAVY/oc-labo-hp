@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="referrer" content="no-referrer">
+<title>予約枠の入力｜OC.LABO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+[hidden]{display:none !important;}
+body{background:#F5F8FA;color:#12283A;font-family:'Noto Sans JP','Hiragino Kaku Gothic ProN',sans-serif;-webkit-text-size-adjust:100%;}
+.wrap{max-width:660px;margin:0 auto;padding:22px 18px 0;}
+
+.top{text-align:center;padding:6px 0 18px;}
+.brand{font-size:11px;letter-spacing:0.34em;color:#7E8C99;font-weight:700;}
+.top h1{font-size:20px;font-weight:700;letter-spacing:0.04em;margin-top:10px;}
+.week{display:inline-block;margin-top:12px;padding:7px 18px;border-radius:999px;background:#12283A;color:#fff;font-size:15px;font-weight:700;letter-spacing:0.03em;}
+.lead{margin-top:14px;font-size:13px;line-height:1.9;color:#5A6B7A;}
+.lead b{color:#12283A;}
+.sp-br{display:none;}
+
+.legend{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 14px;padding:14px 0 16px;border-top:1px solid #E3E9EE;border-bottom:1px solid #E3E9EE;}
+.lg{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;color:#5A6B7A;}
+.sw{width:14px;height:14px;border-radius:4px;display:block;border:1px solid rgba(0,0,0,0.08);}
+.sw.v-yoyuu{background:#E6F7F0;border-color:#0B7A5A;}
+.sw.v-jakkan{background:#FEF4E2;border-color:#A96A05;}
+.sw.v-man{background:#EEF1F4;border-color:#B3BCC5;}
+.sw.v-kyu{background:#E7E9ED;border-color:#8B95A1;}
+.sw.v-none{background:#fff;border:1px dashed #C3CCD4;}
+
+.board{margin-top:18px;background:#fff;border:1px solid #E3E9EE;border-radius:14px;padding:12px;box-shadow:0 1px 2px rgba(18,40,58,0.04);}
+.bhead,.row{display:grid;grid-template-columns:62px 1fr 1fr 1fr 46px;gap:8px;}
+.bhead{padding:2px 0 10px;border-bottom:1px solid #EDF1F4;margin-bottom:10px;}
+.bh-slot{text-align:center;line-height:1.3;}
+.bh-slot b{display:block;font-size:12.5px;font-weight:700;color:#12283A;}
+.bh-slot span{display:block;font-size:10px;color:#8B95A1;margin-top:2px;letter-spacing:0.01em;}
+.bh-rest{text-align:center;font-size:9.5px;line-height:1.35;color:#8B95A1;align-self:center;}
+
+.row{margin-bottom:8px;}
+.row:last-child{margin-bottom:0;}
+.day{display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:10px;color:#fff;padding:6px 0;}
+.day b{font-size:17px;font-weight:700;line-height:1;}
+.day span{font-size:8.5px;margin-top:3px;opacity:0.75;letter-spacing:0.02em;}
+.day.wd{background:#12283A;}
+.day.sat{background:#1D6FA8;}
+.day.sun{background:#B4453F;}
+
+.cell{-webkit-appearance:none;appearance:none;width:100%;min-height:58px;border-radius:10px;font-family:inherit;font-size:12.5px;font-weight:700;line-height:1.35;letter-spacing:0.01em;cursor:pointer;transition:transform 0.06s ease;padding:4px 2px;}
+.cell:active{transform:scale(0.97);}
+.cell.v-none{background:#fff;border:1px dashed #C3CCD4;color:#AAB4BD;font-weight:400;}
+.cell.v-yoyuu{background:#E6F7F0;border:1.5px solid #0B7A5A;color:#0B7A5A;}
+.cell.v-jakkan{background:#FEF4E2;border:1.5px solid #A96A05;color:#A96A05;}
+.cell.v-man{background:#EEF1F4;border:1.5px solid #B3BCC5;color:#6B7681;}
+.cell.v-kyu{background:#E7E9ED;border:1.5px solid #8B95A1;color:#5A6B7A;}
+
+.rest{-webkit-appearance:none;appearance:none;width:100%;min-height:58px;border-radius:10px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;background:#fff;border:1px solid #D7DEE4;color:#9AA5AE;transition:transform 0.06s ease;}
+.rest:active{transform:scale(0.97);}
+.rest.on{background:#8B95A1;border-color:#8B95A1;color:#fff;}
+
+.note{margin-top:18px;}
+.note-t{font-size:11px;color:#8B95A1;letter-spacing:0.08em;margin-bottom:8px;}
+.chips{display:flex;flex-wrap:wrap;gap:8px;}
+.chip{-webkit-appearance:none;appearance:none;font-family:inherit;font-size:12px;font-weight:500;padding:8px 14px;border-radius:999px;border:1px solid #CBD5DD;background:#fff;color:#3E5266;cursor:pointer;}
+.chip-ghost{color:#8B95A1;}
+
+.spacer{height:96px;}
+
+.fbar{position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,0.96);border-top:1px solid #E3E9EE;padding:12px 18px calc(12px + env(safe-area-inset-bottom));display:flex;align-items:center;gap:12px;justify-content:center;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);}
+.fcount{font-size:12.5px;color:#5A6B7A;white-space:nowrap;}
+.fcount span{font-weight:700;color:#12283A;font-size:15px;}
+.save{-webkit-appearance:none;appearance:none;font-family:inherit;flex:1;max-width:280px;min-height:48px;border:0;border-radius:12px;background:#3E5266;color:#fff;font-size:15px;font-weight:700;letter-spacing:0.03em;cursor:pointer;}
+.save.full{background:#0B7A5A;}
+.save:disabled{background:#D4DBE1;color:#94A0AB;cursor:default;}
+
+.done{padding-top:36px;padding-bottom:48px;}
+.dcard{background:#fff;border:1px solid #E3E9EE;border-radius:18px;padding:38px 24px 30px;text-align:center;box-shadow:0 2px 10px rgba(18,40,58,0.05);}
+.demoji{font-size:52px;line-height:1;}
+.dcard h2{font-size:20px;font-weight:700;margin-top:18px;letter-spacing:0.02em;color:#0B7A5A;}
+.done.partial .dcard h2{color:#A96A05;}
+.dlead{font-size:14px;color:#3E5266;margin-top:10px;line-height:1.9;}
+.dbox{margin:22px auto 0;max-width:340px;background:#F5F8FA;border-radius:12px;padding:16px;}
+.dweek{font-size:15px;font-weight:700;color:#12283A;letter-spacing:0.02em;}
+.dcount{font-size:12.5px;color:#5A6B7A;margin-top:6px;}
+.dsub{font-size:12.5px;color:#7E8C99;line-height:2;margin-top:20px;}
+.dback{-webkit-appearance:none;appearance:none;font-family:inherit;margin-top:26px;font-size:13px;font-weight:500;color:#5A6B7A;background:#fff;border:1px solid #CBD5DD;border-radius:999px;padding:11px 22px;cursor:pointer;}
+
+.state{padding:80px 20px;text-align:center;color:#7E8C99;font-size:13.5px;line-height:2;}
+.state b{display:block;font-size:16px;color:#12283A;margin-bottom:8px;}
+.err{margin-top:10px;font-size:12.5px;color:#B4453F;line-height:1.9;text-align:center;}
+
+@media (max-width:640px){
+  .wrap{padding:18px 12px 0;}
+  .sp-br{display:inline;}
+  .bhead,.row{grid-template-columns:42px 1fr 1fr 1fr 38px;gap:5px;}
+  .bh-slot b{font-size:11px;}
+  .bh-slot span{font-size:8.5px;}
+  .bh-rest{font-size:8.5px;}
+  .day b{font-size:15px;}
+  .day span{display:none;}
+  .cell{min-height:56px;font-size:11px;}
+  .rest{min-height:56px;font-size:12px;}
+  .board{padding:10px;}
+  .top h1{font-size:18px;}
+  .week{font-size:14px;}
+  .dcard{padding:32px 18px 26px;}
+  .dcard h2{font-size:18px;}
+}
+</style>
+</head>
+<body>
+
+<main class="wrap" id="screen-loading">
+  <div class="state"><b>読み込んでいます</b>少しお待ちください</div>
+</main>
+
+<main class="wrap" id="screen-ng" hidden>
+  <div class="state"><b>このページは開けません</b>お手数ですが、公式LINEに届いたリンクからもう一度開いてください。</div>
+</main>
+
+<main class="wrap" id="screen-form" hidden>
+
+  <header class="top">
+    <div class="brand">OC.LABO</div>
+    <h1>予約枠の入力</h1>
+    <div class="week" id="week">　</div>
+    <p class="lead">マスを<b>タップ</b>すると状態が切り替わります。<br class="sp-br">途中まででも保存できます。</p>
+  </header>
+
+  <section class="legend">
+    <span class="lg"><i class="sw v-yoyuu"></i>余裕有り</span>
+    <span class="lg"><i class="sw v-jakkan"></i>若干空き有り</span>
+    <span class="lg"><i class="sw v-man"></i>満</span>
+    <span class="lg"><i class="sw v-kyu"></i>休</span>
+    <span class="lg"><i class="sw v-none"></i>未入力</span>
+  </section>
+
+  <section class="board">
+    <div class="bhead">
+      <div class="bh-day"></div>
+      <div class="bh-slot"><b>午前</b><span>9:00-12:00</span></div>
+      <div class="bh-slot"><b>午後</b><span>13:00-17:00</span></div>
+      <div class="bh-slot"><b>夕方</b><span>18:00-20:00</span></div>
+      <div class="bh-rest">終日<br>休み</div>
+    </div>
+    <div id="rows"></div>
+  </section>
+
+  <section class="note">
+    <div class="note-t">まとめて入れる</div>
+    <div class="chips">
+      <button class="chip" data-all="余裕有り">全部 余裕有り</button>
+      <button class="chip" data-all="満">全部 満</button>
+      <button class="chip chip-ghost" data-all="">全部 消す</button>
+    </div>
+    <p class="err" id="err" hidden></p>
+  </section>
+
+  <div class="spacer"></div>
+
+  <footer class="fbar">
+    <div class="fcount"><span id="cnt">0</span> / 21 入力ずみ</div>
+    <button class="save" id="save">途中まで保存する</button>
+  </footer>
+
+</main>
+
+<main class="wrap done" id="screen-done" hidden>
+  <div class="dcard">
+    <div class="demoji" id="d-emoji">🎉</div>
+    <h2 id="d-title">ご登録ありがとうございました！</h2>
+    <p class="dlead" id="d-lead">投稿用素材の作成にかかります。</p>
+    <div class="dbox">
+      <div class="dweek" id="d-week">　</div>
+      <div class="dcount" id="d-count">　</div>
+    </div>
+    <p class="dsub" id="d-sub">　</p>
+    <button class="dback" id="d-back">← 入力画面にもどる</button>
+  </div>
+</main>
+
+<script>
+(function(){
+  var API = 'https://agent-0092.app.n8n.cloud/webhook';
+  var DAYS = ['月曜日','火曜日','水曜日','木曜日','金曜日','土曜日','日曜日'];
+  var SHORT = ['月','火','水','木','金','土','日'];
+  var CYCLE = ['','余裕有り','若干空き有り','満','休'];
+  var CLS = {'':'v-none','余裕有り':'v-yoyuu','若干空き有り':'v-jakkan','満':'v-man','休':'v-kyu'};
+  var TEXT = {'':'タップ','余裕有り':'余裕有り','若干空き有り':'若干空き有り','満':'満','休':'休'};
+
+  var token = new URLSearchParams(window.location.search).get('t') || '';
+  var weekLabel = '';
+  var state = [];
+  for (var i = 0; i < 7; i++) { state.push(['','','']); }
+
+  var scLoading = document.getElementById('screen-loading');
+  var scNg = document.getElementById('screen-ng');
+  var scForm = document.getElementById('screen-form');
+  var scDone = document.getElementById('screen-done');
+  var rows = document.getElementById('rows');
+  var errBox = document.getElementById('err');
+
+  function show(el){
+    scLoading.hidden = true; scNg.hidden = true; scForm.hidden = true; scDone.hidden = true;
+    el.hidden = false;
+    window.scrollTo(0, 0);
+  }
+  function setErr(msg){
+    if (!msg) { errBox.hidden = true; errBox.textContent = ''; return; }
+    errBox.hidden = false; errBox.textContent = msg;
+  }
+
+  var html = '';
+  for (var d = 0; d < 7; d++) {
+    var dayCls = d === 5 ? 'sat' : (d === 6 ? 'sun' : 'wd');
+    html += '<div class="row">';
+    html +=   '<div class="day ' + dayCls + '"><b>' + SHORT[d] + '</b><span>' + DAYS[d] + '</span></div>';
+    for (var s = 0; s < 3; s++) {
+      html += '<button type="button" class="cell v-none" data-d="' + d + '" data-s="' + s + '">タップ</button>';
+    }
+    html +=   '<button type="button" class="rest" data-rest="' + d + '">休</button>';
+    html += '</div>';
+  }
+  rows.innerHTML = html;
+
+  function paint(){
+    var filled = 0;
+    var cells = rows.querySelectorAll('.cell');
+    for (var i = 0; i < cells.length; i++) {
+      var c = cells[i];
+      var v = state[+c.getAttribute('data-d')][+c.getAttribute('data-s')];
+      c.className = 'cell ' + CLS[v];
+      c.textContent = TEXT[v];
+      if (v !== '') filled++;
+    }
+    var rs = rows.querySelectorAll('.rest');
+    for (var j = 0; j < rs.length; j++) {
+      var dd = +rs[j].getAttribute('data-rest');
+      var allRest = state[dd][0] === '休' && state[dd][1] === '休' && state[dd][2] === '休';
+      rs[j].className = 'rest' + (allRest ? ' on' : '');
+    }
+    document.getElementById('cnt').textContent = filled;
+    var sv = document.getElementById('save');
+    sv.textContent = (filled >= 21) ? '保存する' : '途中まで保存する';
+    sv.className = 'save' + (filled >= 21 ? ' full' : '');
+    return filled;
+  }
+
+  rows.addEventListener('click', function(e){
+    var r = e.target.closest('.rest');
+    if (r) {
+      var rd = +r.getAttribute('data-rest');
+      var isRest = state[rd][0] === '休' && state[rd][1] === '休' && state[rd][2] === '休';
+      for (var q = 0; q < 3; q++) { state[rd][q] = isRest ? '' : '休'; }
+      paint(); setErr(''); return;
+    }
+    var t = e.target.closest('.cell');
+    if (!t) return;
+    var d = +t.getAttribute('data-d'), s = +t.getAttribute('data-s');
+    var idx = CYCLE.indexOf(state[d][s]);
+    var next = (idx <= 0) ? 1 : (idx + 1 > 4 ? 1 : idx + 1);
+    state[d][s] = CYCLE[next];
+    paint(); setErr('');
+  });
+
+  var chips = document.querySelectorAll('.chip');
+  for (var k = 0; k < chips.length; k++) {
+    chips[k].addEventListener('click', function(){
+      var v = this.getAttribute('data-all');
+      for (var a = 0; a < 7; a++) { for (var b = 0; b < 3; b++) { state[a][b] = v; } }
+      paint(); setErr('');
+    });
+  }
+
+  function showDone(full, filled, note){
+    document.getElementById('d-emoji').textContent = full ? '🎉' : '📝';
+    document.getElementById('d-title').textContent = full ? 'ご登録ありがとうございました！' : '途中まで保存しました';
+    document.getElementById('d-lead').textContent = full ? '投稿用素材の作成にかかります。' : 'このページをもう一度開くと、続きから入力できます。';
+    document.getElementById('d-week').textContent = weekLabel;
+    document.getElementById('d-count').textContent = filled + ' / 21 マス を受け取りました';
+    document.getElementById('d-sub').innerHTML = note;
+    scDone.className = 'wrap done' + (full ? '' : ' partial');
+    show(scDone);
+  }
+
+  document.getElementById('d-back').addEventListener('click', function(){ show(scForm); });
+
+  document.getElementById('save').addEventListener('click', function(){
+    var filled = paint();
+    if (filled === 0) { setErr('1マスも入っていません。ひとつ以上えらんでから保存してください。'); return; }
+    var btn = this;
+    btn.disabled = true;
+    var before = btn.textContent;
+    btn.textContent = '保存しています…';
+    setErr('');
+    fetch(API + '/oclabo-slots-form-put', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ t: token, weekLabel: weekLabel, rows: state })
+    }).then(function(r){ return r.text(); }).then(function(txt){
+      var j = null;
+      try { j = JSON.parse(txt); } catch (e) { j = null; }
+      btn.disabled = false; btn.textContent = before;
+      if (!j) { setErr('保存できませんでした。時間をおいてもう一度お試しください。'); return; }
+      if (j.saved) {
+        var full = j.filled >= 21;
+        showDone(full, j.filled,
+          full
+            ? '日曜の夜に、Instagram と Googleマップ用の素材ができあがります 🧼✨<br>いつもありがとうございます。'
+            : 'のこり ' + (21 - j.filled) + ' マスです。日曜の夜までにお願いします 🙇<br>途中の内容はこのまま保存されています。');
+        return;
+      }
+      var w = (j.warnings && j.warnings.length) ? j.warnings.join(' / ') : '';
+      if (w.indexOf('週が切り替') !== -1) {
+        setErr('入力できる週が新しくなりました。ページを再読み込みしてから、もう一度お願いします。');
+      } else {
+        setErr('保存できませんでした。' + (w ? '（' + w + '）' : '') + ' 時間をおいてもう一度お試しください。');
+      }
+    }).catch(function(){
+      btn.disabled = false; btn.textContent = before;
+      setErr('通信できませんでした。電波のよい場所でもう一度お試しください。');
+    });
+  });
+
+  if (!token) { show(scNg); return; }
+
+  fetch(API + '/oclabo-slots-form-get?t=' + encodeURIComponent(token))
+    .then(function(r){ return r.text(); })
+    .then(function(txt){
+      var j = null;
+      try { j = JSON.parse(txt); } catch (e) { j = null; }
+      if (!j || !j.weekLabel) { show(scNg); return; }
+      weekLabel = j.weekLabel;
+      document.getElementById('week').textContent = weekLabel;
+      if (Array.isArray(j.rows) && j.rows.length === 7) {
+        for (var a = 0; a < 7; a++) {
+          for (var b = 0; b < 3; b++) {
+            var v = j.rows[a][b];
+            state[a][b] = (CYCLE.indexOf(v) > 0) ? v : '';
+          }
+        }
+      }
+      paint();
+      show(scForm);
+    })
+    .catch(function(){ show(scNg); });
+})();
+</script>
+</body>
+</html>
