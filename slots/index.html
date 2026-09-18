@@ -283,6 +283,7 @@ body{background:#F5F8FA;color:#12283A;font-family:'Noto Sans JP','Hiragino Kaku 
     document.getElementById('d-count').textContent = filled + ' / 21 マス を受け取りました';
     document.getElementById('d-sub').innerHTML = note;
     scDone.className = 'wrap done' + (full ? '' : ' partial');
+    document.getElementById('d-back').style.display = full ? 'none' : '';
     show(scDone);
   }
 
@@ -307,6 +308,7 @@ body{background:#F5F8FA;color:#12283A;font-family:'Noto Sans JP','Hiragino Kaku 
       if (!j) { setErr('保存できませんでした。時間をおいてもう一度お試しください。'); return; }
       if (j.saved) {
         var full = j.filled >= 21;
+        if (full) { btn.disabled = true; btn.textContent = '保存ずみ'; }
         showDone(full, j.filled,
           full
             ? '日曜の夜に投稿いたします。<br>いつもありがとうございます。'
