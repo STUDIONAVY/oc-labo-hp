@@ -229,7 +229,7 @@
     }
     .wcard:hover { transform: translateY(-5px); box-shadow: 0 14px 38px rgba(26,39,68,0.14); }
 
-    .wcard-img { position: relative; aspect-ratio: 4/3; overflow: hidden; }
+    .wcard-img { position: relative; aspect-ratio: 4/3; overflow: hidden; background: var(--sand, #F2F0EA); }
     .wcard-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease; }
     .wcard:hover .wcard-img img { transform: scale(1.04); }
 
@@ -252,12 +252,13 @@
     .works-more { text-align: center; margin-top: 48px; }
 
     /* ── INSTAGRAM ── */
-    .ig-row { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 8px; scrollbar-width: none; }
+    .ig-row { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 8px; scrollbar-width: none; justify-content: safe center; }
     .ig-row::-webkit-scrollbar { display: none; }
     .ig-photo {
-      width: 196px; height: 196px; flex-shrink: 0;
+      width: 196px; height: 196px; flex-shrink: 0; position: relative;
       border-radius: 14px; overflow: hidden; background: var(--border);
     }
+    .ig-reel { position: absolute; top: 8px; right: 8px; width: 26px; height: 26px; border-radius: 50%; background: rgba(0,0,0,0.45); color: #fff; font-size: 11px; display: flex; align-items: center; justify-content: center; }
     .ig-photo img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.35s ease; }
     .ig-photo:hover img { transform: scale(1.07); }
     .ig-more { text-align: center; margin-top: 40px; }
@@ -449,7 +450,7 @@
     <div class="hero-img">
       <!-- ★ 差し替え待ち: assets/hero-kitchen.jpg に元のキッチン写真を配置してください -->
       <img src="assets/hero-kitchen.jpg"
-           onerror="this.src='https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=1200&q=80'"
+           onerror="this.onerror=null;this.style.visibility='hidden'"
            alt="金沢市ハウスクリーニング・清潔なキッチン施工事例">
     </div>
   </div>
@@ -568,7 +569,7 @@
     <a href="./works/${w.id}/" class="wcard" style="text-decoration:none;color:inherit;display:block;">
       <div class="wcard-img">
         <img src="${w.img}" alt="${w.title}" loading="lazy"
-             onerror="this.src='https://images.unsplash.com/photo-1585771724684-38269d6639fd?auto=format&fit=crop&w=600&q=80'">
+             onerror="this.onerror=null;this.style.visibility='hidden'">
         <span class="wcard-badge">CLEANING DETAIL</span>
       </div>
       <div class="wcard-body">
@@ -588,7 +589,7 @@
 </section>
 
 <!-- ═══════════════════════════════════════════
-     INSTAGRAM（Instagram連携設定後に有効化）
+     INSTAGRAM（最新5件・n8n Feed_IgLatest が毎日 data/instagram.json を更新。無ければ欄ごと非表示）
 ═══════════════════════════════════════════ -->
 <div style="max-width:1200px;margin:0 auto;padding:0 clamp(16px,5vw,32px) 56px;">
   <a href="./business/" style="display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;background:#1a2744;color:#fff;border-radius:20px;padding:26px 30px;text-decoration:none;box-shadow:0 10px 30px rgba(26,39,68,0.16);">
@@ -613,31 +614,25 @@
 
 <script>
 (async function loadInstagram() {
-  const FALLBACK_IG = [
-    { media_url: "https://images.unsplash.com/photo-1585771724684-38269d6639fd?auto=format&fit=crop&w=400&q=80", permalink: "https://www.instagram.com/oc.labo.kanazawa/", caption: "施工事例" },
-    { media_url: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=400&q=80", permalink: "https://www.instagram.com/oc.labo.kanazawa/", caption: "施工事例" },
-    { media_url: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=400&q=80", permalink: "https://www.instagram.com/oc.labo.kanazawa/", caption: "施工事例" },
-    { media_url: "https://images.unsplash.com/photo-1583845112203-29329902332e?auto=format&fit=crop&w=400&q=80", permalink: "https://www.instagram.com/oc.labo.kanazawa/", caption: "施工事例" },
-    { media_url: "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&w=400&q=80", permalink: "https://www.instagram.com/oc.labo.kanazawa/", caption: "施工事例" },
-    { media_url: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=400&q=80", permalink: "https://www.instagram.com/oc.labo.kanazawa/", caption: "施工事例" },
-  ];
 
+  // 本物の投稿（n8n が毎日 data/instagram.json を更新）だけを出す。素材写真には差し替えない（2026-10-26）
   let posts = [];
   try {
-    const res = await fetch('./data/instagram.json');
-    if (res.ok) {
-      const data = await res.json();
-      posts = data.length ? data : FALLBACK_IG;
-    } else { posts = FALLBACK_IG; }
-  } catch { posts = FALLBACK_IG; }
+    const res = await fetch('./data/instagram.json', { cache: 'no-cache' });
+    if (res.ok) { const data = await res.json(); if (Array.isArray(data)) posts = data.filter(p => p && p.img && p.permalink); }
+  } catch {}
+  if (!posts.length) return;
 
   const row = document.getElementById('ig-row');
-  row.innerHTML = posts.slice(0, 9).map(p => `
-    <a href="${p.permalink}" target="_blank" rel="noopener" class="ig-photo" title="${(p.caption || '').slice(0, 60)}">
-      <img src="${p.media_url}" alt="OC.LABO 施工事例" loading="lazy"
-           onerror="this.src='https://images.unsplash.com/photo-1585771724684-38269d6639fd?auto=format&fit=crop&w=400&q=80'">
+  const esc = t => String(t || '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  row.innerHTML = posts.slice(0, 5).map(p => `
+    <a href="${esc(p.permalink)}" target="_blank" rel="noopener" class="ig-photo" title="${esc((p.caption || '').slice(0, 60))}">
+      <img src="${esc(p.img)}" alt="${esc((p.caption || 'OC.LABO の投稿').slice(0, 40))}" loading="lazy"
+           onerror="this.closest('a').remove()">
+      ${p.type === 'reel' ? '<span class="ig-reel">▶</span>' : ''}
     </a>
   `).join('');
+  document.getElementById('instagram').style.display = '';
 })();
 </script>
     <div class="ig-more">
@@ -766,7 +761,7 @@
     <div class="about-inner">
       <div class="about-img">
         <img src="assets/aisatsu.png"
-             onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80'"
+             onerror="this.onerror=null;this.style.visibility='hidden'"
              alt="OC.LABOオーナー">
       </div>
       <div class="about-copy">
