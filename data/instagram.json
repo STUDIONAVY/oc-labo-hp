@@ -1,5 +1,13 @@
 [
   {
+    "id": "18116009246621303",
+    "type": "feed",
+    "img": "/assets/ig/18116009246621303.jpg",
+    "permalink": "https://www.instagram.com/p/DfrbBl0iGdz/",
+    "caption": "ベッドで横になると咳が出る。",
+    "ts": "2026-11-13T10:31:34+0000"
+  },
+  {
     "id": "18094954109495996",
     "type": "feed",
     "img": "/assets/ig/18094954109495996.jpg",
@@ -30,13 +38,5 @@
     "permalink": "https://www.instagram.com/p/DfHX5eKCFV7/",
     "caption": "玄関のカビ、ずっと放っておいていませんか。",
     "ts": "2026-10-30T10:31:35+0000"
-  },
-  {
-    "id": "18095335628176585",
-    "type": "reel",
-    "img": "/assets/ig/18095335628176585.jpg",
-    "permalink": "https://www.instagram.com/reel/DfEy9DNjOjQ/",
-    "caption": "自動お掃除機能、本当に必要？",
-    "ts": "2026-10-29T10:31:04+0000"
   }
 ]
